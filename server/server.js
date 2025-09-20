@@ -122,6 +122,12 @@ app.post('/api/quote', quoteLimiter, async (req, res) => {
       honeypot: req.body.company_website
     });
 
+    // Server safety net - honeypot check
+    if (typeof req.body.company_website === 'string' && req.body.company_website.trim() !== '') {
+      logger.security(`Spam honeypot hit [${requestId}]`, { value: req.body.company_website });
+      return res.status(400).json({ success: false, error: 'Submission rejected' });
+    }
+
     // Validate and sanitize input
     const validation = validateQuotePayload(req.body);
     if (!validation.valid) {

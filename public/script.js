@@ -89,6 +89,21 @@
    */
   async function handleFormSubmit(e) {
     e.preventDefault();
+
+    // HONEYPOT: block bots + overeager browser autofill
+    const hp = document.getElementById('company_website'); // match the input id
+    if (hp && hp.value && hp.value.trim() !== '') {
+      console.warn('🍯 Honeypot filled:', hp.value);
+      // Show your red banner/message here:
+      showFormAlert('error', 'Internal server error. Please try again or contact us directly.');
+      return; // 🚫 DO NOT submit
+    }
+    // Ensure it's empty before we read fields / build payload
+    if (hp) {
+      hp.value = '';
+      // also fire an input event so any listeners reset
+      hp.dispatchEvent(new Event('input', { bubbles: true }));
+    }
     
     // Clear any previous alerts
     hideFormAlert();
@@ -104,18 +119,16 @@
     setSubmitButtonLoading(true);
     
     try {
-      // Build payload
-      const formData = new FormData(form);
+      // Build payload explicitly (do NOT include the honeypot)
       const payload = {
-        pharmacy_name: formData.get('pharmacy_name') || '',
-        contact_person: formData.get('contact_person') || '',
-        email: formData.get('email') || '',
-        phone: formData.get('phone') || '',
-        address: formData.get('address') || '',
-        monthly_scripts: formData.get('monthly_scripts') || '', // Server expects this field name
-        message: formData.get('message') || '',
-        company_website: formData.get('company_website') || '',
-        consent: formData.has('consent'),
+        pharmacy_name: document.getElementById('pharmacy_name').value.trim(),
+        contact_person: document.getElementById('contact_person').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        monthly_scripts: document.getElementById('weekly_deliveries').value, // Server expects monthly_scripts field name
+        message: document.getElementById('message')?.value?.trim() || '',
+        consent: document.getElementById('consent')?.checked || false,
         submission_time: formStartTime // Time when page loaded, not when submitted
       };
 
