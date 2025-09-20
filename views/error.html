@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>Something Went Wrong — DashRx</title>
+    <meta name="description" content="We're experiencing technical difficulties. Please try again or contact us directly.">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <meta name="theme-color" content="#15899D">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- Skip to Content Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="header" role="banner">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <a href="/" class="nav-logo">
+                    <span class="logo-text">DashRx</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="error-page" role="main">
+        <div class="container">
+            <div class="error-content">
+                <!-- Error Icon -->
+                <div class="error-icon">
+                    <div class="error-circle">
+                        <span class="error-symbol">⚠️</span>
+                    </div>
+                </div>
+
+                <!-- Error Message -->
+                <h1 class="error-title">Something Went Wrong</h1>
+                <p class="error-message">
+                    We're experiencing technical difficulties with your quote submission. 
+                    Don't worry — we're here to help!
+                </p>
+
+                <!-- Suggested Actions -->
+                <div class="suggested-actions">
+                    <h2 class="actions-title">What you can do:</h2>
+                    <ul class="actions-list">
+                        <li class="action-item">
+                            <span class="action-icon">🔄</span>
+                            <span class="action-text">Go back and try submitting the form again</span>
+                        </li>
+                        <li class="action-item">
+                            <span class="action-icon">📞</span>
+                            <span class="action-text">Call us directly for immediate assistance</span>
+                        </li>
+                        <li class="action-item">
+                            <span class="action-icon">📧</span>
+                            <span class="action-text">Send us an email with your pharmacy details</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact Options -->
+                <div class="contact-options">
+                    <a href="tel:+13133332133" class="btn btn-primary">
+                        <span class="btn-icon">📞</span>
+                        Call (313) 333-2133
+                    </a>
+                    <a href="mailto:dashrx10@gmail.com?subject=Quote Request - Technical Issue" class="btn btn-secondary">
+                        <span class="btn-icon">📧</span>
+                        Email dashrx10@gmail.com
+                    </a>
+                </div>
+
+                <!-- Try Again -->
+                <div class="try-again">
+                    <a href="/" class="btn btn-outline">
+                        ← Try Again
+                    </a>
+                </div>
+
+                <!-- Additional Help -->
+                <div class="additional-help">
+                    <p class="help-text">
+                        <strong>For fastest service:</strong> Call us at (313) 333-2133 and we'll take your 
+                        information over the phone. We're committed to providing excellent service to 
+                        Metro Detroit pharmacies.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer footer-minimal" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <span class="footer-copyright">
+                    © <span id="current-year">2024</span> DashRx. All rights reserved.
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update copyright year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Auto-focus on main content for screen readers
+        document.getElementById('main-content').focus();
+        
+        // Get URL parameters to show specific error if available
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorType = urlParams.get('type');
+        
+        if (errorType === 'validation') {
+            const errorMessage = document.querySelector('.error-message');
+            errorMessage.textContent = 'There was an issue with the information you provided. Please check your form and try again.';
+        } else if (errorType === 'network') {
+            const errorMessage = document.querySelector('.error-message');
+            errorMessage.textContent = 'We\'re having trouble connecting to our servers. Please check your internet connection and try again.';
+        }
+    </script>
+</body>
+</html>

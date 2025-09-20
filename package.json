@@ -1,0 +1,29 @@
+{
+  "name": "dashrx-pharmacy-site",
+  "version": "1.0.0",
+  "description": "DashRx Pharmacy Partner Marketing Website - Fast, secure, one-page site for pharmacy partnerships",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node server/server.js",
+    "test": "node server/test/quoteRoute.test.js",
+    "build": "echo 'No build step required for vanilla HTML/CSS/JS'"
+  },
+  "keywords": ["pharmacy", "prescription", "delivery", "healthcare", "dashrx"],
+  "author": "DashRx",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5",
+    "nodemailer": "^6.9.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
