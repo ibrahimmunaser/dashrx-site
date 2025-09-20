@@ -308,6 +308,34 @@ app.post('/api/logs/clear', (req, res) => {
   }
 });
 
+// --- TEMP: simple email smoke test ---
+app.post('/api/test-email', async (req, res) => {
+  try {
+    const result = await sendQuoteEmail({
+      pharmacy_name: 'Test Pharmacy',
+      contact_person: 'Server Test',
+      email: process.env.MAIL_USER,
+      phone: '0000000000',
+      address: '123 Test Ave',
+      weekly_deliveries: 'Less than 25',
+      message: 'If you got this, SMTP works.',
+      // make sure honeypot is empty:
+      company_website: ''
+    });
+    return res.json({ success: true, from: process.env.MAIL_FROM, to: process.env.MAIL_TO, result });
+  } catch (err) {
+    logger.error('TEST EMAIL FAILED', {
+      code: err.code,
+      responseCode: err.responseCode,
+      command: err.command,
+      msg: err.message,
+      stack: err.stack,
+      response: err.response
+    });
+    return res.status(500).json({ success: false, error: err.message, code: err.code, responseCode: err.responseCode });
+  }
+});
+
 // Handle 404 for API routes
 app.use('/api/*', (req, res) => {
   res.status(404).json({

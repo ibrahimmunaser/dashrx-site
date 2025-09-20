@@ -226,14 +226,16 @@ For urgent matters, call them at ${data.phone}
         messageId: info.messageId,
         timestamp: this.formatTimestamp()
       };
-    } catch (error) {
-      logger.error('Failed to send quote email', {
-        error: error.message,
-        code: error.code,
-        command: error.command,
-        stack: error.stack
+    } catch (err) {
+      logger.error('sendQuoteEmail error', {
+        code: err.code,
+        responseCode: err.responseCode,
+        command: err.command,
+        message: err.message,
+        stack: err.stack,
+        response: err.response
       });
-      throw new Error(`Email delivery failed: ${error.message}`);
+      throw err;
     }
   }
 
