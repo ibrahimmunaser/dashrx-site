@@ -290,8 +290,19 @@
                         <!-- Form Alert for Errors -->
                         <div id="formAlert" class="form-alert" style="display: none;" role="alert"></div>
                         
-                        <!-- Honeypot Field (Hidden) -->
-                        <input type="text" name="company_website" id="company_website" class="honeypot" tabindex="-1" autocomplete="off">
+                        <!-- Honeypot (anti-bot) -->
+                        <label for="company_website" class="visually-hidden" aria-hidden="true">Leave this blank</label>
+                        <input
+                          type="text"
+                          id="company_website"
+                          name="company_website"
+                          value=""
+                          tabindex="-1"
+                          aria-hidden="true"
+                          autocomplete="off"
+                          inputmode="none"
+                          style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;"
+                        />
                         
                         <!-- Required Fields -->
                         <div class="form-group">

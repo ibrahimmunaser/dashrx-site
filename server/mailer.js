@@ -20,19 +20,21 @@ class MailerService {
     try {
       logger.info(`Initializing email transporter for provider: ${this.provider}`);
       
-      switch (this.provider.toLowerCase()) {
+      const provider = (process.env.MAIL_PROVIDER || 'gmail').toLowerCase();
+      
+      switch (provider) {
         case 'gmail':
+          const user = process.env.MAIL_USER || process.env.GMAIL_USER;
+          const pass = process.env.MAIL_PASS || process.env.GMAIL_APP_PASSWORD || process.env.MAIL_APP_PASS;
+          
           logger.debug('Configuring Gmail transporter', {
-            user: process.env.MAIL_USER,
-            hasPassword: !!process.env.MAIL_APP_PASS
+            user: user,
+            hasPassword: !!pass
           });
           
           this.transporter = nodemailer.createTransport({
             service: 'gmail',
-            auth: {
-              user: process.env.MAIL_USER,
-              pass: process.env.MAIL_APP_PASS
-            }
+            auth: { user, pass }
           });
           break;
 
@@ -152,6 +154,22 @@ For urgent matters, call them at ${data.phone}
    * Send quote email to DashRx team
    */
   async sendQuoteEmail(data) {
+    // TEMP: dry-run mode to skip sending emails while testing the rest of the flow
+    if (process.env.DRY_RUN === 'true') {
+      logger.info('DRY_RUN mode enabled - skipping actual email send', {
+        pharmacy: data.pharmacy_name,
+        contact: data.contact_person,
+        replyTo: data.email
+      });
+      
+      return {
+        success: true,
+        messageId: 'DRY_RUN_' + Date.now(),
+        timestamp: new Date().toISOString(),
+        dryRun: true
+      };
+    }
+
     if (!this.transporter) {
       logger.error('Email transporter not initialized');
       throw new Error('Email transporter not initialized');
@@ -165,9 +183,14 @@ For urgent matters, call them at ${data.phone}
 
     const { subject, textBody } = this.buildEmailContent(data);
 
+    // Use flexible from/to configuration with proper fallbacks
+    const user = process.env.MAIL_USER || process.env.GMAIL_USER;
+    const from = process.env.MAIL_FROM || user; // IMPORTANT: default to the same gmail user
+    const to = process.env.MAIL_TO || user;
+
     const mailOptions = {
-      from: process.env.MAIL_USER,
-      to: 'Dashrx10@gmail.com',
+      from,
+      to,
       replyTo: data.email,
       subject: subject,
       text: textBody,

@@ -1,0 +1,1376 @@
+DashRx Server Logs - Downloaded: 09/20/2025, 14:49:04.718 EST/EDT (2025-09-20T18:49:04.718Z)
+================================================================================
+
+
+========================================
+LOG FILE: dashrx.log
+SIZE: 47.70 KB
+MODIFIED: 2025-09-20T18:49:04.717Z
+========================================
+
+
+================================================================================
+🚀 DASHRX SERVER SESSION STARTED
+================================================================================
+Timestamp: 09/20/2025, 14:44:31.816 EST/EDT (2025-09-20T18:44:31.816Z)
+Node Version: v24.8.0
+Platform: linux
+Environment: production
+Mail Provider: gmail
+================================================================================
+
+[09/20/2025, 14:44:32.291 EST/EDT (2025-09-20T18:44:32.291Z)] ℹ️ INFO    Initializing email transporter for provider: gmail
+[09/20/2025, 14:44:32.292 EST/EDT (2025-09-20T18:44:32.292Z)] 🔍 DEBUG   Configuring Gmail transporter
+{
+  "user": "Dashrx10@gmail.com",
+  "hasPassword": true
+}
+[09/20/2025, 14:44:32.389 EST/EDT (2025-09-20T18:44:32.389Z)] ✅ SUCCESS Email transporter initialized successfully for gmail
+[09/20/2025, 14:44:32.391 EST/EDT (2025-09-20T18:44:32.391Z)] ℹ️ INFO    Configuring security middleware
+[09/20/2025, 14:44:32.392 EST/EDT (2025-09-20T18:44:32.392Z)] ℹ️ INFO    Configuring CORS policy
+[09/20/2025, 14:44:32.393 EST/EDT (2025-09-20T18:44:32.393Z)] ℹ️ INFO    Configuring body parsing middleware
+[09/20/2025, 14:44:32.394 EST/EDT (2025-09-20T18:44:32.394Z)] ℹ️ INFO    Applying rate limiting to API routes
+[09/20/2025, 14:44:32.398 EST/EDT (2025-09-20T18:44:32.398Z)] ✅ SUCCESS DashRx server running on port 10000
+[09/20/2025, 14:44:32.398 EST/EDT (2025-09-20T18:44:32.398Z)] ℹ️ INFO    Mail provider: gmail
+[09/20/2025, 14:44:32.398 EST/EDT (2025-09-20T18:44:32.398Z)] ℹ️ INFO    Environment: production
+[09/20/2025, 14:44:32.399 EST/EDT (2025-09-20T18:44:32.399Z)] ℹ️ INFO    Server startup complete - ready to accept requests
+[09/20/2025, 14:44:32.876 EST/EDT (2025-09-20T18:44:32.876Z)] 📥 REQUEST HEAD /
+{
+  "method": "HEAD",
+  "url": "/",
+  "ip": "::1",
+  "userAgent": "Go-http-client/1.1",
+  "timestamp": "2025-09-20T18:44:32.876Z"
+}
+[09/20/2025, 14:44:32.882 EST/EDT (2025-09-20T18:44:32.882Z)] 📤 RESPONSE HEAD / - 200 (6ms)
+{
+  "method": "HEAD",
+  "url": "/",
+  "statusCode": 200,
+  "contentLength": 23690,
+  "responseTime": "6ms",
+  "timestamp": "2025-09-20T18:44:32.882Z"
+}
+[09/20/2025, 14:44:38.680 EST/EDT (2025-09-20T18:44:38.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:44:38.680Z"
+}
+[09/20/2025, 14:44:38.681 EST/EDT (2025-09-20T18:44:38.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:44:38.683 EST/EDT (2025-09-20T18:44:38.683Z)] 📤 RESPONSE GET /api/health - 200 (3ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "3ms",
+  "timestamp": "2025-09-20T18:44:38.683Z"
+}
+[09/20/2025, 14:44:38.686 EST/EDT (2025-09-20T18:44:38.686Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:44:38.686Z"
+}
+[09/20/2025, 14:44:38.686 EST/EDT (2025-09-20T18:44:38.686Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:44:38.686 EST/EDT (2025-09-20T18:44:38.686Z)] 📤 RESPONSE GET /api/health - 200 (0ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "0ms",
+  "timestamp": "2025-09-20T18:44:38.686Z"
+}
+[09/20/2025, 14:44:42.191 EST/EDT (2025-09-20T18:44:42.191Z)] 📥 REQUEST GET /
+{
+  "method": "GET",
+  "url": "/",
+  "ip": "::1",
+  "userAgent": "Go-http-client/2.0",
+  "timestamp": "2025-09-20T18:44:42.191Z"
+}
+[09/20/2025, 14:44:42.194 EST/EDT (2025-09-20T18:44:42.194Z)] 📤 RESPONSE GET / - 200 (3ms)
+{
+  "method": "GET",
+  "url": "/",
+  "statusCode": 200,
+  "contentLength": 23690,
+  "responseTime": "3ms",
+  "timestamp": "2025-09-20T18:44:42.194Z"
+}
+[09/20/2025, 14:44:43.679 EST/EDT (2025-09-20T18:44:43.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:44:43.679Z"
+}
+[09/20/2025, 14:44:43.680 EST/EDT (2025-09-20T18:44:43.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:44:43.680 EST/EDT (2025-09-20T18:44:43.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:44:43.680Z"
+}
+[09/20/2025, 14:44:48.680 EST/EDT (2025-09-20T18:44:48.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:44:48.680Z"
+}
+[09/20/2025, 14:44:48.681 EST/EDT (2025-09-20T18:44:48.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:44:48.681 EST/EDT (2025-09-20T18:44:48.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:44:48.681Z"
+}
+[09/20/2025, 14:44:48.682 EST/EDT (2025-09-20T18:44:48.682Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:44:48.682Z"
+}
+[09/20/2025, 14:44:48.683 EST/EDT (2025-09-20T18:44:48.683Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:44:48.683 EST/EDT (2025-09-20T18:44:48.683Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:44:48.683Z"
+}
+[09/20/2025, 14:44:53.680 EST/EDT (2025-09-20T18:44:53.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:44:53.680Z"
+}
+[09/20/2025, 14:44:53.680 EST/EDT (2025-09-20T18:44:53.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:44:53.680 EST/EDT (2025-09-20T18:44:53.680Z)] 📤 RESPONSE GET /api/health - 200 (0ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "0ms",
+  "timestamp": "2025-09-20T18:44:53.680Z"
+}
+[09/20/2025, 14:44:58.680 EST/EDT (2025-09-20T18:44:58.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:44:58.680Z"
+}
+[09/20/2025, 14:44:58.680 EST/EDT (2025-09-20T18:44:58.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:44:58.681 EST/EDT (2025-09-20T18:44:58.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:44:58.681Z"
+}
+[09/20/2025, 14:45:03.680 EST/EDT (2025-09-20T18:45:03.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:45:03.680Z"
+}
+[09/20/2025, 14:45:03.681 EST/EDT (2025-09-20T18:45:03.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:45:03.681 EST/EDT (2025-09-20T18:45:03.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:45:03.681Z"
+}
+[09/20/2025, 14:45:08.679 EST/EDT (2025-09-20T18:45:08.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:45:08.679Z"
+}
+[09/20/2025, 14:45:08.680 EST/EDT (2025-09-20T18:45:08.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:45:08.680 EST/EDT (2025-09-20T18:45:08.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:45:08.680Z"
+}
+[09/20/2025, 14:45:13.680 EST/EDT (2025-09-20T18:45:13.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:45:13.680Z"
+}
+[09/20/2025, 14:45:13.681 EST/EDT (2025-09-20T18:45:13.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:45:13.681 EST/EDT (2025-09-20T18:45:13.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:45:13.681Z"
+}
+[09/20/2025, 14:45:18.680 EST/EDT (2025-09-20T18:45:18.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:45:18.680Z"
+}
+[09/20/2025, 14:45:18.681 EST/EDT (2025-09-20T18:45:18.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:45:18.681 EST/EDT (2025-09-20T18:45:18.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:45:18.681Z"
+}
+[09/20/2025, 14:45:18.682 EST/EDT (2025-09-20T18:45:18.682Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:45:18.682Z"
+}
+[09/20/2025, 14:45:18.683 EST/EDT (2025-09-20T18:45:18.683Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:45:18.684 EST/EDT (2025-09-20T18:45:18.684Z)] 📤 RESPONSE GET /api/health - 200 (2ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "2ms",
+  "timestamp": "2025-09-20T18:45:18.684Z"
+}
+[09/20/2025, 14:45:23.679 EST/EDT (2025-09-20T18:45:23.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:45:23.679Z"
+}
+[09/20/2025, 14:45:23.680 EST/EDT (2025-09-20T18:45:23.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:45:23.680 EST/EDT (2025-09-20T18:45:23.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:45:23.680Z"
+}
+[09/20/2025, 14:45:28.679 EST/EDT (2025-09-20T18:45:28.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:45:28.679Z"
+}
+[09/20/2025, 14:45:28.680 EST/EDT (2025-09-20T18:45:28.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:45:28.680 EST/EDT (2025-09-20T18:45:28.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:45:28.680Z"
+}
+[09/20/2025, 14:45:33.680 EST/EDT (2025-09-20T18:45:33.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:45:33.680Z"
+}
+[09/20/2025, 14:45:33.680 EST/EDT (2025-09-20T18:45:33.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:45:33.681 EST/EDT (2025-09-20T18:45:33.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:45:33.681Z"
+}
+[09/20/2025, 14:45:38.679 EST/EDT (2025-09-20T18:45:38.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:45:38.679Z"
+}
+[09/20/2025, 14:45:38.680 EST/EDT (2025-09-20T18:45:38.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:45:38.680 EST/EDT (2025-09-20T18:45:38.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:45:38.680Z"
+}
+[09/20/2025, 14:45:43.679 EST/EDT (2025-09-20T18:45:43.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:45:43.679Z"
+}
+[09/20/2025, 14:45:43.680 EST/EDT (2025-09-20T18:45:43.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:45:43.680 EST/EDT (2025-09-20T18:45:43.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:45:43.680Z"
+}
+[09/20/2025, 14:45:48.683 EST/EDT (2025-09-20T18:45:48.683Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:45:48.683Z"
+}
+[09/20/2025, 14:45:48.684 EST/EDT (2025-09-20T18:45:48.684Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:45:48.684 EST/EDT (2025-09-20T18:45:48.684Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:45:48.684Z"
+}
+[09/20/2025, 14:45:48.688 EST/EDT (2025-09-20T18:45:48.688Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:45:48.687Z"
+}
+[09/20/2025, 14:45:48.689 EST/EDT (2025-09-20T18:45:48.689Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:45:48.689 EST/EDT (2025-09-20T18:45:48.689Z)] 📤 RESPONSE GET /api/health - 200 (2ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "2ms",
+  "timestamp": "2025-09-20T18:45:48.689Z"
+}
+[09/20/2025, 14:45:53.680 EST/EDT (2025-09-20T18:45:53.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:45:53.680Z"
+}
+[09/20/2025, 14:45:53.680 EST/EDT (2025-09-20T18:45:53.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:45:53.681 EST/EDT (2025-09-20T18:45:53.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:45:53.681Z"
+}
+[09/20/2025, 14:45:58.679 EST/EDT (2025-09-20T18:45:58.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:45:58.679Z"
+}
+[09/20/2025, 14:45:58.680 EST/EDT (2025-09-20T18:45:58.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:45:58.680 EST/EDT (2025-09-20T18:45:58.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:45:58.680Z"
+}
+[09/20/2025, 14:46:03.680 EST/EDT (2025-09-20T18:46:03.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:46:03.680Z"
+}
+[09/20/2025, 14:46:03.680 EST/EDT (2025-09-20T18:46:03.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:46:03.681 EST/EDT (2025-09-20T18:46:03.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:46:03.681Z"
+}
+[09/20/2025, 14:46:08.679 EST/EDT (2025-09-20T18:46:08.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:46:08.679Z"
+}
+[09/20/2025, 14:46:08.680 EST/EDT (2025-09-20T18:46:08.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:46:08.681 EST/EDT (2025-09-20T18:46:08.681Z)] 📤 RESPONSE GET /api/health - 200 (2ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "2ms",
+  "timestamp": "2025-09-20T18:46:08.681Z"
+}
+[09/20/2025, 14:46:13.679 EST/EDT (2025-09-20T18:46:13.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:46:13.679Z"
+}
+[09/20/2025, 14:46:13.680 EST/EDT (2025-09-20T18:46:13.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:46:13.680 EST/EDT (2025-09-20T18:46:13.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:46:13.680Z"
+}
+[09/20/2025, 14:46:18.679 EST/EDT (2025-09-20T18:46:18.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:46:18.679Z"
+}
+[09/20/2025, 14:46:18.680 EST/EDT (2025-09-20T18:46:18.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:46:18.680 EST/EDT (2025-09-20T18:46:18.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:46:18.680Z"
+}
+[09/20/2025, 14:46:18.682 EST/EDT (2025-09-20T18:46:18.682Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:46:18.682Z"
+}
+[09/20/2025, 14:46:18.682 EST/EDT (2025-09-20T18:46:18.682Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:46:18.682 EST/EDT (2025-09-20T18:46:18.682Z)] 📤 RESPONSE GET /api/health - 200 (0ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "0ms",
+  "timestamp": "2025-09-20T18:46:18.682Z"
+}
+[09/20/2025, 14:46:23.680 EST/EDT (2025-09-20T18:46:23.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:46:23.680Z"
+}
+[09/20/2025, 14:46:23.680 EST/EDT (2025-09-20T18:46:23.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:46:23.681 EST/EDT (2025-09-20T18:46:23.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:46:23.681Z"
+}
+[09/20/2025, 14:46:28.680 EST/EDT (2025-09-20T18:46:28.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:46:28.680Z"
+}
+[09/20/2025, 14:46:28.682 EST/EDT (2025-09-20T18:46:28.682Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:46:28.683 EST/EDT (2025-09-20T18:46:28.683Z)] 📤 RESPONSE GET /api/health - 200 (3ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "3ms",
+  "timestamp": "2025-09-20T18:46:28.683Z"
+}
+[09/20/2025, 14:46:33.680 EST/EDT (2025-09-20T18:46:33.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:46:33.680Z"
+}
+[09/20/2025, 14:46:33.681 EST/EDT (2025-09-20T18:46:33.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:46:33.682 EST/EDT (2025-09-20T18:46:33.682Z)] 📤 RESPONSE GET /api/health - 200 (2ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "2ms",
+  "timestamp": "2025-09-20T18:46:33.682Z"
+}
+[09/20/2025, 14:46:38.680 EST/EDT (2025-09-20T18:46:38.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:46:38.680Z"
+}
+[09/20/2025, 14:46:38.681 EST/EDT (2025-09-20T18:46:38.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:46:38.681 EST/EDT (2025-09-20T18:46:38.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:46:38.681Z"
+}
+[09/20/2025, 14:46:43.679 EST/EDT (2025-09-20T18:46:43.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:46:43.679Z"
+}
+[09/20/2025, 14:46:43.680 EST/EDT (2025-09-20T18:46:43.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:46:43.680 EST/EDT (2025-09-20T18:46:43.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:46:43.680Z"
+}
+[09/20/2025, 14:46:48.680 EST/EDT (2025-09-20T18:46:48.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:46:48.680Z"
+}
+[09/20/2025, 14:46:48.681 EST/EDT (2025-09-20T18:46:48.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:46:48.682 EST/EDT (2025-09-20T18:46:48.682Z)] 📤 RESPONSE GET /api/health - 200 (2ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "2ms",
+  "timestamp": "2025-09-20T18:46:48.682Z"
+}
+[09/20/2025, 14:46:48.683 EST/EDT (2025-09-20T18:46:48.683Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:46:48.683Z"
+}
+[09/20/2025, 14:46:48.683 EST/EDT (2025-09-20T18:46:48.683Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:46:48.684 EST/EDT (2025-09-20T18:46:48.684Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:46:48.684Z"
+}
+[09/20/2025, 14:46:50.824 EST/EDT (2025-09-20T18:46:50.824Z)] 📥 REQUEST POST /api/quote
+{
+  "method": "POST",
+  "url": "/api/quote",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+  "contentType": "application/json",
+  "contentLength": "265",
+  "timestamp": "2025-09-20T18:46:50.824Z"
+}
+[09/20/2025, 14:46:50.844 EST/EDT (2025-09-20T18:46:50.844Z)] ℹ️ INFO    Quote form submission received [7avh9ulcv]
+{
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+  "contentLength": "265"
+}
+[09/20/2025, 14:46:50.844 EST/EDT (2025-09-20T18:46:50.844Z)] 🔍 DEBUG   Request payload received [7avh9ulcv]
+{
+  "pharmacy_name": "Pharmasy",
+  "contact_person": "Ibrahim Munaser",
+  "email": "ibrahimmunaser@gmail.com",
+  "phone": "3138443429",
+  "hasMessage": true,
+  "honeypot": ""
+}
+[09/20/2025, 14:46:50.845 EST/EDT (2025-09-20T18:46:50.845Z)] ✅ SUCCESS Validation passed [7avh9ulcv]
+[09/20/2025, 14:46:50.845 EST/EDT (2025-09-20T18:46:50.845Z)] 🔍 DEBUG   Submission timing check [7avh9ulcv]
+{
+  "submissionTime": "2025-09-20T18:43:36.608Z",
+  "timeDiff": "194237ms",
+  "isValid": true
+}
+[09/20/2025, 14:46:50.846 EST/EDT (2025-09-20T18:46:50.846Z)] 📧 EMAIL   Attempting to send quote email [7avh9ulcv]
+{
+  "to": "Dashrx10@gmail.com",
+  "pharmacy": "Pharmasy",
+  "contact": "Ibrahim Munaser",
+  "replyTo": "ibrahimmunaser@gmail.com"
+}
+[09/20/2025, 14:46:50.889 EST/EDT (2025-09-20T18:46:50.889Z)] ℹ️ INFO    Building email content
+{
+  "pharmacy": "Pharmasy",
+  "contact": "Ibrahim Munaser",
+  "replyTo": "ibrahimmunaser@gmail.com"
+}
+[09/20/2025, 14:46:50.890 EST/EDT (2025-09-20T18:46:50.890Z)] 🔍 DEBUG   Email options prepared
+{
+  "from": "Dashrx10@gmail.com",
+  "to": "Dashrx10@gmail.com",
+  "replyTo": "ibrahimmunaser@gmail.com",
+  "subject": "New Delivery Quote Request — Pharmasy",
+  "bodyLength": 564
+}
+[09/20/2025, 14:46:50.890 EST/EDT (2025-09-20T18:46:50.890Z)] ℹ️ INFO    Sending email via transporter...
+[09/20/2025, 14:46:51.264 EST/EDT (2025-09-20T18:46:51.264Z)] ❌ ERROR   Failed to send quote email
+{
+  "error": "Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-269800530c2sm89342645ad.3 - gsmtp",
+  "code": "EAUTH",
+  "command": "AUTH PLAIN",
+  "stack": "Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-269800530c2sm89342645ad.3 - gsmtp\n    at SMTPConnection._formatError (/opt/render/project/src/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionAUTHComplete (/opt/render/project/src/node_modules/nodemailer/lib/smtp-connection/index.js:1588:34)\n    at SMTPConnection.<anonymous> (/opt/render/project/src/node_modules/nodemailer/lib/smtp-connection/index.js:556:26)\n    at SMTPConnection._processResponse (/opt/render/project/src/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/opt/render/project/src/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/opt/render/project/src/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at TLSSocket.emit (node:events:508:28)\n    at addChunk (node:internal/streams/readable:559:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)\n    at Readable.push (node:internal/streams/readable:390:5)"
+}
+[09/20/2025, 14:46:51.265 EST/EDT (2025-09-20T18:46:51.265Z)] ❌ ERROR   Quote submission error [7avh9ulcv]
+{
+  "error": "Email delivery failed: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-269800530c2sm89342645ad.3 - gsmtp",
+  "stack": "Error: Email delivery failed: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-269800530c2sm89342645ad.3 - gsmtp\n    at MailerService.sendQuoteEmail (/opt/render/project/src/server/mailer.js:213:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async /opt/render/project/src/server/server.js:179:25",
+  "requestBody": [
+    "pharmacy_name",
+    "contact_person",
+    "email",
+    "phone",
+    "address",
+    "monthly_scripts",
+    "message",
+    "company_website",
+    "consent",
+    "submission_time"
+  ]
+}
+[09/20/2025, 14:46:51.266 EST/EDT (2025-09-20T18:46:51.266Z)] ❌ ERROR   POST /api/quote - 500 (442ms)
+{
+  "method": "POST",
+  "url": "/api/quote",
+  "statusCode": 500,
+  "contentLength": "161",
+  "responseTime": "442ms",
+  "timestamp": "2025-09-20T18:46:51.266Z"
+}
+[09/20/2025, 14:46:53.680 EST/EDT (2025-09-20T18:46:53.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:46:53.680Z"
+}
+[09/20/2025, 14:46:53.681 EST/EDT (2025-09-20T18:46:53.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:46:53.681 EST/EDT (2025-09-20T18:46:53.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:46:53.681Z"
+}
+[09/20/2025, 14:46:58.679 EST/EDT (2025-09-20T18:46:58.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:46:58.679Z"
+}
+[09/20/2025, 14:46:58.680 EST/EDT (2025-09-20T18:46:58.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:46:58.680 EST/EDT (2025-09-20T18:46:58.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:46:58.680Z"
+}
+[09/20/2025, 14:47:03.680 EST/EDT (2025-09-20T18:47:03.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:47:03.680Z"
+}
+[09/20/2025, 14:47:03.680 EST/EDT (2025-09-20T18:47:03.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:47:03.680 EST/EDT (2025-09-20T18:47:03.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:47:03.680Z"
+}
+[09/20/2025, 14:47:08.680 EST/EDT (2025-09-20T18:47:08.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:47:08.680Z"
+}
+[09/20/2025, 14:47:08.680 EST/EDT (2025-09-20T18:47:08.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:47:08.681 EST/EDT (2025-09-20T18:47:08.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:47:08.681Z"
+}
+[09/20/2025, 14:47:13.680 EST/EDT (2025-09-20T18:47:13.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:47:13.680Z"
+}
+[09/20/2025, 14:47:13.681 EST/EDT (2025-09-20T18:47:13.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:47:13.681 EST/EDT (2025-09-20T18:47:13.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:47:13.681Z"
+}
+[09/20/2025, 14:47:18.680 EST/EDT (2025-09-20T18:47:18.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:47:18.680Z"
+}
+[09/20/2025, 14:47:18.680 EST/EDT (2025-09-20T18:47:18.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:47:18.681 EST/EDT (2025-09-20T18:47:18.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:47:18.681Z"
+}
+[09/20/2025, 14:47:18.681 EST/EDT (2025-09-20T18:47:18.681Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:47:18.681Z"
+}
+[09/20/2025, 14:47:18.682 EST/EDT (2025-09-20T18:47:18.682Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:47:18.682 EST/EDT (2025-09-20T18:47:18.682Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:47:18.682Z"
+}
+[09/20/2025, 14:47:23.680 EST/EDT (2025-09-20T18:47:23.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:47:23.680Z"
+}
+[09/20/2025, 14:47:23.680 EST/EDT (2025-09-20T18:47:23.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:47:23.681 EST/EDT (2025-09-20T18:47:23.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:47:23.681Z"
+}
+[09/20/2025, 14:47:28.679 EST/EDT (2025-09-20T18:47:28.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:47:28.679Z"
+}
+[09/20/2025, 14:47:28.680 EST/EDT (2025-09-20T18:47:28.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:47:28.681 EST/EDT (2025-09-20T18:47:28.681Z)] 📤 RESPONSE GET /api/health - 200 (2ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "2ms",
+  "timestamp": "2025-09-20T18:47:28.681Z"
+}
+[09/20/2025, 14:47:33.679 EST/EDT (2025-09-20T18:47:33.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:47:33.679Z"
+}
+[09/20/2025, 14:47:33.680 EST/EDT (2025-09-20T18:47:33.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:47:33.681 EST/EDT (2025-09-20T18:47:33.681Z)] 📤 RESPONSE GET /api/health - 200 (2ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "2ms",
+  "timestamp": "2025-09-20T18:47:33.681Z"
+}
+[09/20/2025, 14:47:38.679 EST/EDT (2025-09-20T18:47:38.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:47:38.679Z"
+}
+[09/20/2025, 14:47:38.680 EST/EDT (2025-09-20T18:47:38.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:47:38.680 EST/EDT (2025-09-20T18:47:38.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:47:38.680Z"
+}
+[09/20/2025, 14:47:43.679 EST/EDT (2025-09-20T18:47:43.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:47:43.679Z"
+}
+[09/20/2025, 14:47:43.680 EST/EDT (2025-09-20T18:47:43.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:47:43.680 EST/EDT (2025-09-20T18:47:43.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:47:43.680Z"
+}
+[09/20/2025, 14:47:48.681 EST/EDT (2025-09-20T18:47:48.681Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:47:48.681Z"
+}
+[09/20/2025, 14:47:48.682 EST/EDT (2025-09-20T18:47:48.682Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:47:48.683 EST/EDT (2025-09-20T18:47:48.683Z)] 📤 RESPONSE GET /api/health - 200 (2ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "2ms",
+  "timestamp": "2025-09-20T18:47:48.683Z"
+}
+[09/20/2025, 14:47:48.684 EST/EDT (2025-09-20T18:47:48.684Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:47:48.684Z"
+}
+[09/20/2025, 14:47:48.685 EST/EDT (2025-09-20T18:47:48.685Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:47:48.685 EST/EDT (2025-09-20T18:47:48.685Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:47:48.685Z"
+}
+[09/20/2025, 14:47:53.680 EST/EDT (2025-09-20T18:47:53.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:47:53.680Z"
+}
+[09/20/2025, 14:47:53.681 EST/EDT (2025-09-20T18:47:53.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:47:53.681 EST/EDT (2025-09-20T18:47:53.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:47:53.681Z"
+}
+[09/20/2025, 14:47:58.679 EST/EDT (2025-09-20T18:47:58.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:47:58.679Z"
+}
+[09/20/2025, 14:47:58.681 EST/EDT (2025-09-20T18:47:58.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:47:58.683 EST/EDT (2025-09-20T18:47:58.683Z)] 📤 RESPONSE GET /api/health - 200 (4ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "4ms",
+  "timestamp": "2025-09-20T18:47:58.683Z"
+}
+[09/20/2025, 14:48:00.006 EST/EDT (2025-09-20T18:48:00.006Z)] 📥 REQUEST GET /api/logs/info
+{
+  "method": "GET",
+  "url": "/api/logs/info",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+  "timestamp": "2025-09-20T18:48:00.006Z"
+}
+[09/20/2025, 14:48:00.009 EST/EDT (2025-09-20T18:48:00.009Z)] 🔍 DEBUG   Log info requested
+[09/20/2025, 14:48:00.010 EST/EDT (2025-09-20T18:48:00.010Z)] 📤 RESPONSE GET /api/logs/info - 200 (4ms)
+{
+  "method": "GET",
+  "url": "/api/logs/info",
+  "statusCode": 200,
+  "contentLength": "166",
+  "responseTime": "4ms",
+  "timestamp": "2025-09-20T18:48:00.010Z"
+}
+[09/20/2025, 14:48:00.236 EST/EDT (2025-09-20T18:48:00.236Z)] 📥 REQUEST GET /favicon.ico
+{
+  "method": "GET",
+  "url": "/favicon.ico",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+  "timestamp": "2025-09-20T18:48:00.236Z"
+}
+[09/20/2025, 14:48:00.241 EST/EDT (2025-09-20T18:48:00.241Z)] 📤 RESPONSE GET /favicon.ico - 200 (5ms)
+{
+  "method": "GET",
+  "url": "/favicon.ico",
+  "statusCode": 200,
+  "contentLength": 502,
+  "responseTime": "5ms",
+  "timestamp": "2025-09-20T18:48:00.241Z"
+}
+[09/20/2025, 14:48:03.680 EST/EDT (2025-09-20T18:48:03.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:48:03.680Z"
+}
+[09/20/2025, 14:48:03.680 EST/EDT (2025-09-20T18:48:03.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:48:03.681 EST/EDT (2025-09-20T18:48:03.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:48:03.681Z"
+}
+[09/20/2025, 14:48:08.681 EST/EDT (2025-09-20T18:48:08.681Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:48:08.681Z"
+}
+[09/20/2025, 14:48:08.682 EST/EDT (2025-09-20T18:48:08.682Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:48:08.682 EST/EDT (2025-09-20T18:48:08.682Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:48:08.682Z"
+}
+[09/20/2025, 14:48:13.679 EST/EDT (2025-09-20T18:48:13.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:48:13.679Z"
+}
+[09/20/2025, 14:48:13.680 EST/EDT (2025-09-20T18:48:13.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:48:13.681 EST/EDT (2025-09-20T18:48:13.681Z)] 📤 RESPONSE GET /api/health - 200 (2ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "2ms",
+  "timestamp": "2025-09-20T18:48:13.681Z"
+}
+[09/20/2025, 14:48:15.999 EST/EDT (2025-09-20T18:48:15.999Z)] 📥 REQUEST GET /wordpress/wp-admin/setup-config.php
+{
+  "method": "GET",
+  "url": "/wordpress/wp-admin/setup-config.php",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+  "timestamp": "2025-09-20T18:48:15.999Z"
+}
+[09/20/2025, 14:48:16.002 EST/EDT (2025-09-20T18:48:16.002Z)] 📤 RESPONSE GET /wordpress/wp-admin/setup-config.php - 200 (3ms)
+{
+  "method": "GET",
+  "url": "/wordpress/wp-admin/setup-config.php",
+  "statusCode": 200,
+  "contentLength": 23690,
+  "responseTime": "3ms",
+  "timestamp": "2025-09-20T18:48:16.002Z"
+}
+[09/20/2025, 14:48:18.680 EST/EDT (2025-09-20T18:48:18.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:48:18.680Z"
+}
+[09/20/2025, 14:48:18.680 EST/EDT (2025-09-20T18:48:18.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:48:18.681 EST/EDT (2025-09-20T18:48:18.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:48:18.681Z"
+}
+[09/20/2025, 14:48:18.682 EST/EDT (2025-09-20T18:48:18.682Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:48:18.682Z"
+}
+[09/20/2025, 14:48:18.683 EST/EDT (2025-09-20T18:48:18.683Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:48:18.683 EST/EDT (2025-09-20T18:48:18.683Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:48:18.683Z"
+}
+[09/20/2025, 14:48:23.679 EST/EDT (2025-09-20T18:48:23.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:48:23.679Z"
+}
+[09/20/2025, 14:48:23.680 EST/EDT (2025-09-20T18:48:23.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:48:23.680 EST/EDT (2025-09-20T18:48:23.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:48:23.680Z"
+}
+[09/20/2025, 14:48:28.680 EST/EDT (2025-09-20T18:48:28.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:48:28.680Z"
+}
+[09/20/2025, 14:48:28.680 EST/EDT (2025-09-20T18:48:28.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:48:28.681 EST/EDT (2025-09-20T18:48:28.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:48:28.681Z"
+}
+[09/20/2025, 14:48:33.680 EST/EDT (2025-09-20T18:48:33.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:48:33.680Z"
+}
+[09/20/2025, 14:48:33.681 EST/EDT (2025-09-20T18:48:33.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:48:33.681 EST/EDT (2025-09-20T18:48:33.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:48:33.681Z"
+}
+[09/20/2025, 14:48:38.680 EST/EDT (2025-09-20T18:48:38.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:48:38.680Z"
+}
+[09/20/2025, 14:48:38.681 EST/EDT (2025-09-20T18:48:38.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:48:38.681 EST/EDT (2025-09-20T18:48:38.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:48:38.681Z"
+}
+[09/20/2025, 14:48:43.680 EST/EDT (2025-09-20T18:48:43.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:48:43.680Z"
+}
+[09/20/2025, 14:48:43.681 EST/EDT (2025-09-20T18:48:43.681Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:48:43.681 EST/EDT (2025-09-20T18:48:43.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:48:43.681Z"
+}
+[09/20/2025, 14:48:48.679 EST/EDT (2025-09-20T18:48:48.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:48:48.679Z"
+}
+[09/20/2025, 14:48:48.680 EST/EDT (2025-09-20T18:48:48.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:48:48.681 EST/EDT (2025-09-20T18:48:48.681Z)] 📤 RESPONSE GET /api/health - 200 (2ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "2ms",
+  "timestamp": "2025-09-20T18:48:48.681Z"
+}
+[09/20/2025, 14:48:48.682 EST/EDT (2025-09-20T18:48:48.682Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:48:48.682Z"
+}
+[09/20/2025, 14:48:48.682 EST/EDT (2025-09-20T18:48:48.682Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:48:48.682 EST/EDT (2025-09-20T18:48:48.682Z)] 📤 RESPONSE GET /api/health - 200 (0ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "0ms",
+  "timestamp": "2025-09-20T18:48:48.682Z"
+}
+[09/20/2025, 14:48:53.679 EST/EDT (2025-09-20T18:48:53.679Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:48:53.679Z"
+}
+[09/20/2025, 14:48:53.680 EST/EDT (2025-09-20T18:48:53.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:48:53.680 EST/EDT (2025-09-20T18:48:53.680Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:48:53.680Z"
+}
+[09/20/2025, 14:48:58.680 EST/EDT (2025-09-20T18:48:58.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:48:58.680Z"
+}
+[09/20/2025, 14:48:58.680 EST/EDT (2025-09-20T18:48:58.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:48:58.681 EST/EDT (2025-09-20T18:48:58.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:48:58.681Z"
+}
+[09/20/2025, 14:49:03.680 EST/EDT (2025-09-20T18:49:03.680Z)] 📥 REQUEST GET /api/health
+{
+  "method": "GET",
+  "url": "/api/health",
+  "ip": "::ffff:10.228.26.16",
+  "userAgent": "Render/1.0",
+  "timestamp": "2025-09-20T18:49:03.680Z"
+}
+[09/20/2025, 14:49:03.680 EST/EDT (2025-09-20T18:49:03.680Z)] ℹ️ INFO    Health check requested
+[09/20/2025, 14:49:03.681 EST/EDT (2025-09-20T18:49:03.681Z)] 📤 RESPONSE GET /api/health - 200 (1ms)
+{
+  "method": "GET",
+  "url": "/api/health",
+  "statusCode": 200,
+  "contentLength": "86",
+  "responseTime": "1ms",
+  "timestamp": "2025-09-20T18:49:03.681Z"
+}
+[09/20/2025, 14:49:04.716 EST/EDT (2025-09-20T18:49:04.716Z)] 📥 REQUEST GET /api/logs/download
+{
+  "method": "GET",
+  "url": "/api/logs/download",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+  "timestamp": "2025-09-20T18:49:04.716Z"
+}
+[09/20/2025, 14:49:04.717 EST/EDT (2025-09-20T18:49:04.717Z)] ℹ️ INFO    Log download requested
+{
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+}
+
+
