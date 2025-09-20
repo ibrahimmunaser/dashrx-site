@@ -197,19 +197,15 @@ app.post('/api/quote', quoteLimiter, async (req, res) => {
 
   } catch (error) {
     logger.error(`Quote submission error [${requestId}]`, {
+      code: error.code || null,
       error: error.message,
-      stack: error.stack,
-      requestBody: req.body ? Object.keys(req.body) : 'none'
+      stack: error.stack?.split('\n').slice(0,3).join(' | '),
     });
-    
-    // Don't expose internal error details to client
+
     res.status(500).json({
       success: false,
       error: 'Internal server error. Please try again or contact us directly.',
-      contactInfo: {
-        phone: '(313) 333-2133',
-        email: 'dashrx10@gmail.com'
-      }
+      contactInfo: { phone: '(313) 333-2133', email: 'dashrx10@gmail.com' }
     });
   }
 });

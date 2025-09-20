@@ -119,12 +119,19 @@
     setSubmitButtonLoading(true);
     
     try {
-      // ensure honeypot is empty (some browsers autofill it)
-      const hp = document.getElementById('company_website');
-      if (hp) {
-        hp.value = '';
-        hp.dispatchEvent(new Event('input', { bubbles: true }));
-      }
+      // Token mapping for weekly scripts
+      const scriptsMap = { 
+        lt25: 'Less than 25', 
+        '25to125': '25 to 125', 
+        gt125: 'More than 125' 
+      };
+
+      const scriptsToken = document.getElementById('weekly_scripts')?.value;
+      const scriptsDisplay = scriptsMap[scriptsToken] || 'Less than 25';
+
+      // Ensure honeypot is blank
+      const honeypotEl = document.getElementById('company_website');
+      if (honeypotEl) honeypotEl.value = '';
       
       // Build payload explicitly (do NOT include the honeypot)
       const payload = {
@@ -133,10 +140,11 @@
         email: document.getElementById('email').value.trim(),
         phone: document.getElementById('phone').value.trim(),
         address: document.getElementById('address').value.trim(),
-        monthly_scripts: document.getElementById('weekly_deliveries').value, // Server expects monthly_scripts field name
+        weekly_scripts: scriptsToken,                 // token (preferred)
+        weekly_scripts_display: scriptsDisplay,       // optional, for email display
         message: document.getElementById('message')?.value?.trim() || '',
         consent: document.getElementById('consent')?.checked || false,
-        submission_time: formStartTime // Time when page loaded, not when submitted
+        submission_time: Date.now()
       };
 
       console.log('Submitting payload:', payload);

@@ -386,14 +386,14 @@
 
                         <!-- Weekly Deliveries Dropdown -->
                         <div class="form-group">
-                            <label for="weekly_deliveries" class="form-label">
+                            <label for="weekly_scripts" class="form-label">
                                 Estimated Weekly Deliveries
                             </label>
-                            <select id="weekly_deliveries" name="monthly_scripts" class="form-select">
+                            <select id="weekly_scripts" name="weekly_scripts" class="form-select" required>
                                 <option value="">Select volume...</option>
-                                <option value="<25">Less than 25</option>
-                                <option value="25–125">25 to 125</option>
-                                <option value=">125">More than 125</option>
+                                <option value="lt25">Less than 25</option>
+                                <option value="25to125">25 to 125</option>
+                                <option value="gt125">More than 125</option>
                             </select>
                         </div>
 

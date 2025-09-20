@@ -6,6 +6,27 @@
 const logger = require('./logger');
 
 /**
+ * Normalize weekly scripts value - handles tokens and legacy display strings
+ */
+const normalizeWeeklyScripts = (val) => {
+  if (!val) return { token: 'lt25', display: 'Less than 25' };
+  const v = String(val).trim();
+
+  // Accept tokens first
+  if (v === 'lt25')     return { token: 'lt25',     display: 'Less than 25' };
+  if (v === '25to125')  return { token: '25to125',  display: '25 to 125' };
+  if (v === 'gt125')    return { token: 'gt125',    display: 'More than 125' };
+
+  // Accept legacy display strings (hyphen or EN/EM dash)
+  const clean = v.replace(/\u2013|\u2014/g, '-'); // en/em dash → hyphen
+  if (/^less\s+than\s+25$/i.test(clean))                  return { token: 'lt25',    display: 'Less than 25' };
+  if (/^(25\s*-\s*125|25\s*to\s*125)$/i.test(clean))      return { token: '25to125', display: '25 to 125' };
+  if (/^more\s+than\s+125$/i.test(clean))                 return { token: 'gt125',   display: 'More than 125' };
+
+  return { token: 'lt25', display: 'Less than 25' };
+};
+
+/**
  * Validates email format using RFC-compliant regex
  */
 function isValidEmail(email) {
@@ -106,8 +127,14 @@ function validateQuotePayload(payload) {
     errors.push('Valid email address is required');
   }
   
-  // Optional field validation
-  if (payload.monthly_scripts && !isValidMonthlyScripts(payload.monthly_scripts)) {
+  // Weekly scripts normalization
+  const scriptsNorm = normalizeWeeklyScripts(payload.weekly_scripts || payload.weekly_scripts_display);
+  logger.debug('Weekly scripts normalization', {
+    input: payload.weekly_scripts,
+    inputDisplay: payload.weekly_scripts_display,
+    normalized: scriptsNorm
+  });
+  if (!scriptsNorm.token) {
     errors.push('Invalid weekly delivery volume selected');
   }
   
@@ -160,7 +187,8 @@ function validateQuotePayload(payload) {
     phone: sanitizeText(payload.phone),
     email: sanitizeText(payload.email),
     address: sanitizeText(payload.address || ''),
-    monthly_scripts: payload.monthly_scripts || '',
+    weekly_scripts: scriptsNorm.token,
+    weekly_scripts_display: scriptsNorm.display,
     message: sanitizeText(payload.message || ''),
     company_website: sanitizeText(payload.company_website || '')
   };

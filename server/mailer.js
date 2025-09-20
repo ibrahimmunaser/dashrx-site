@@ -1,78 +1,79 @@
-// server/mailer.js
 const nodemailer = require('nodemailer');
 const logger = require('./logger');
 
-const provider = (process.env.MAIL_PROVIDER || 'gmail').toLowerCase();
-
-function buildTransporter() {
-  if (provider !== 'gmail') {
-    throw new Error(`Unsupported MAIL_PROVIDER: ${provider}`);
-  }
-
-  if (!process.env.MAIL_USER || !process.env.MAIL_APP_PASS) {
-    throw new Error('Missing MAIL_USER or MAIL_APP_PASS env vars');
-  }
-
-  // Strict Gmail (App Password) SMTP
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,          // SSL
-    secure: true,       // true = use TLS/SSL
-    auth: {
-      user: process.env.MAIL_USER,        // e.g. dashrx10@gmail.com
-      pass: process.env.MAIL_APP_PASS     // 16-char app password
-    }
-  });
-
-  return transporter;
+const required = ['MAIL_PROVIDER','MAIL_USER','MAIL_APP_PASS','MAIL_FROM','MAIL_TO'];
+for (const k of required) {
+  if (!process.env[k]) logger.error('Mail config missing', { missingKey: k });
 }
 
-const transporter = buildTransporter();
+function makeTransport() {
+  if (process.env.MAIL_PROVIDER !== 'gmail') {
+    throw new Error(`Unsupported MAIL_PROVIDER: ${process.env.MAIL_PROVIDER}`);
+  }
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user: process.env.MAIL_USER, pass: process.env.MAIL_APP_PASS },
+  });
+}
+
+let transporter;
+try {
+  transporter = makeTransport();
+  logger.info('Email transporter initialized (gmail)');
+} catch (e) {
+  logger.error('Failed to init transporter', { err: e.message });
+}
 
 async function sendQuoteEmail(data) {
-  // Required headers
+  // TEMP: dry-run mode to skip sending emails while testing the rest of the flow
+  if (process.env.DRY_RUN === 'true') {
+    logger.info('DRY_RUN mode enabled - skipping actual email send', {
+      pharmacy: data.pharmacy_name,
+      contact: data.contact_person,
+      replyTo: data.email
+    });
+    
+    return {
+      success: true,
+      messageId: 'DRY_RUN_' + Date.now(),
+      timestamp: new Date().toISOString(),
+      dryRun: true
+    };
+  }
+
+  if (!transporter) {
+    const err = new Error('Email transporter not initialized');
+    err.code = 'MAIL_INIT';
+    throw err;
+  }
+
+  const to = process.env.MAIL_TO;
   const from = process.env.MAIL_FROM || process.env.MAIL_USER;
-  const to   = process.env.MAIL_TO   || process.env.MAIL_USER;
 
-  if (!to) throw new Error('MAIL_TO not set');
-
-  const subject = `New Quote Request — ${data.pharmacy_name || 'Unknown Pharmacy'}`;
-
-  const lines = [
-    `Pharmacy: ${data.pharmacy_name}`,
-    `Contact: ${data.contact_person}`,
-    `Email:   ${data.email}`,
-    `Phone:   ${data.phone}`,
-    `Address: ${data.address}`,
-    `Weekly Deliveries: ${data.weekly_deliveries}`,
-    ``,
-    `Message:`,
-    `${data.message || '(none)'}`
-  ];
+  const html = `
+    <h2>New Quote Request</h2>
+    <ul>
+      <li><b>Pharmacy:</b> ${data.pharmacy_name}</li>
+      <li><b>Contact:</b> ${data.contact_person}</li>
+      <li><b>Email:</b> ${data.email}</li>
+      <li><b>Phone:</b> ${data.phone}</li>
+      <li><b>Address:</b> ${data.address}</li>
+      <li><b>Estimated Weekly Scripts:</b> ${data.weekly_scripts_display || data.weekly_scripts}</li>
+      <li><b>Notes:</b> ${data.message || '(none)'}</li>
+    </ul>
+  `;
 
   try {
     const info = await transporter.sendMail({
-      from,               // must be your Gmail address for Gmail SMTP
-      to,                 // where you want to receive requests
-      replyTo: data.email || undefined,   // user's email is safe in reply-to
-      subject,
-      text: lines.join('\n'),
-      html: `<pre>${lines.map(l => String(l)).join('\n')}</pre>`
+      to, from, replyTo: data.email,
+      subject: `DashRx Quote – ${data.pharmacy_name}`,
+      html,
     });
-
-    logger.success('Email sent', { messageId: info.messageId, accepted: info.accepted, rejected: info.rejected });
     return { messageId: info.messageId, timestamp: new Date().toISOString() };
-
-  } catch (err) {
-    // Log everything useful from Nodemailer
-    logger.error('sendQuoteEmail error', {
-      code: err.code,
-      responseCode: err.responseCode,
-      command: err.command,
-      message: err.message,
-      stack: err.stack,
-      response: err.response
-    });
+  } catch (e) {
+    logger.error('sendMail failed', { code: e.code, message: e.message });
+    const err = new Error('MAIL_SEND_FAILED');
+    err.code = e.code || 'MAIL_SEND_FAILED';
     throw err;
   }
 }
