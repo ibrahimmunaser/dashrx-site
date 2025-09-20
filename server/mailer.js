@@ -1,19 +1,41 @@
 const nodemailer = require('nodemailer');
 const logger = require('./logger');
 
-const required = ['MAIL_PROVIDER','MAIL_USER','MAIL_APP_PASS','MAIL_FROM','MAIL_TO'];
+const required = ['MAIL_PROVIDER','MAIL_USER','MAIL_PASS','MAIL_FROM','MAIL_TO'];
 for (const k of required) {
   if (!process.env[k]) logger.error('Mail config missing', { missingKey: k });
 }
 
 function makeTransport() {
-  if (process.env.MAIL_PROVIDER !== 'gmail') {
-    throw new Error(`Unsupported MAIL_PROVIDER: ${process.env.MAIL_PROVIDER}`);
+  const provider = (process.env.MAIL_PROVIDER || 'gmail').toLowerCase();
+  
+  let transporter;
+  switch (provider) {
+    case 'gmail':
+      logger.debug('Configuring Gmail transporter', {
+        user: process.env.MAIL_USER,
+        hasPassword: !!process.env.MAIL_PASS
+      });
+
+      transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true, // SSL
+        auth: {
+          user: process.env.MAIL_USER,  // e.g. Dashrx10@gmail.com
+          pass: process.env.MAIL_PASS   // <-- use the Gmail App Password here
+        },
+        tls: {
+          rejectUnauthorized: true
+        }
+      });
+      break;
+      
+    default:
+      throw new Error(`Unsupported MAIL_PROVIDER: ${provider}`);
   }
-  return nodemailer.createTransport({
-    service: 'gmail',
-    auth: { user: process.env.MAIL_USER, pass: process.env.MAIL_APP_PASS },
-  });
+  
+  return transporter;
 }
 
 let transporter;
