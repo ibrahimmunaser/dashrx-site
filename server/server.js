@@ -88,6 +88,11 @@ app.get('/terms', (req, res) => {
   res.sendFile(path.join(__dirname, '../views/terms.html'));
 });
 
+// Logo transparency test page
+app.get('/logo-test', (req, res) => {
+  res.sendFile(path.join(__dirname, '../views/logo-test.html'));
+});
+
 // Quote form submission endpoint
 app.post('/api/quote', quoteLimiter, async (req, res) => {
   const requestId = Math.random().toString(36).substr(2, 9);

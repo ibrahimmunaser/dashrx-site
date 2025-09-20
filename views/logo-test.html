@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Transparency Test - DashRx</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .dark-bg {
+            background: #222;
+            color: white;
+        }
+        
+        .light-bg {
+            background: #f9f9f9;
+            color: black;
+            border: 1px solid #ddd;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            color: white;
+        }
+        
+        .pattern-bg {
+            background: repeating-linear-gradient(
+                45deg,
+                #000,
+                #000 10px,
+                #fff 10px,
+                #fff 20px
+            );
+        }
+        
+        .logo-test {
+            text-align: center;
+            padding: 16px;
+        }
+        
+        .logo-test img {
+            max-width: 300px;
+            height: auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+        
+        p {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Logo Transparency Test</h1>
+        
+        <div class="test-section dark-bg">
+            <h2>Test 1: Dark Background (#222)</h2>
+            <p>If transparency works, the logo should blend with this dark background, not show a white box.</p>
+            <div class="logo-test">
+                <img src="/logo.png" alt="DashRx Logo Test" />
+            </div>
+        </div>
+        
+        <div class="test-section light-bg">
+            <h2>Test 2: Light Background (#f9f9f9)</h2>
+            <p>The logo should blend seamlessly with this light background.</p>
+            <div class="logo-test">
+                <img src="/logo.png" alt="DashRx Logo Test" />
+            </div>
+        </div>
+        
+        <div class="test-section gradient-bg">
+            <h2>Test 3: Gradient Background</h2>
+            <p>The logo should show only the logo content, allowing the gradient to show through transparent areas.</p>
+            <div class="logo-test">
+                <img src="/logo.png" alt="DashRx Logo Test" />
+            </div>
+        </div>
+        
+        <div class="test-section pattern-bg">
+            <h2>Test 4: Pattern Background</h2>
+            <p>This striped pattern should be visible through transparent areas of the logo.</p>
+            <div class="logo-test">
+                <img src="/logo.png" alt="DashRx Logo Test" />
+            </div>
+        </div>
+        
+        <div class="test-section light-bg">
+            <h2>Test Results Analysis</h2>
+            <p><strong>✅ Transparency Working:</strong> Logo blends seamlessly with all backgrounds, no white/colored boxes visible.</p>
+            <p><strong>❌ Transparency Broken:</strong> Logo appears in a white or colored rectangular box instead of blending.</p>
+            <p><strong>Note:</strong> This test page helps identify if the PNG transparency is preserved in the browser.</p>
+        </div>
+    </div>
+</body>
+</html>
