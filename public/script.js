@@ -16,6 +16,10 @@
     initializeEventListeners();
     updateCopyrightYear();
     initializeMobileNav();
+    
+    // Stamp the hidden submission_time field a few seconds in the past
+    const ts = document.getElementById('submission_time');
+    if (ts) ts.value = Date.now() - 5000; // 5s cushion
   });
 
   /**
@@ -119,18 +123,8 @@
     setSubmitButtonLoading(true);
     
     try {
-      // Token mapping for weekly scripts
-      const scriptsMap = { 
-        lt25: 'Less than 25', 
-        '25to125': '25 to 125', 
-        gt125: 'More than 125' 
-      };
-
-      const scriptsToken = document.getElementById('weekly_scripts')?.value;
-      const scriptsDisplay = scriptsMap[scriptsToken] || 'Less than 25';
-
-      // Ensure honeypot is empty right before submit
-      const hp = form.querySelector('#company_website');
+      // Make sure the honeypot is empty
+      const hp = form.querySelector('#company_website'); 
       if (hp) hp.value = '';
       
       // Build payload explicitly (do NOT include the honeypot)
@@ -140,11 +134,11 @@
         email: document.getElementById('email').value.trim(),
         phone: document.getElementById('phone').value.trim(),
         address: document.getElementById('address').value.trim(),
-        weekly_scripts: scriptsToken,                 // token (preferred)
-        weekly_scripts_display: scriptsDisplay,       // optional, for email display
+        weekly_scripts: form.elements['monthly_scripts']?.value || form.elements['weekly_scripts']?.value,
+        weekly_scripts_display: form.elements['monthly_scripts']?.selectedOptions?.[0]?.text || form.elements['weekly_scripts']?.selectedOptions?.[0]?.text,
         message: document.getElementById('message')?.value?.trim() || '',
-        consent: document.getElementById('consent')?.checked || false,
-        submission_time: Date.now() - 3000             // ensure >= 2s elapsed for anti-bot check
+        submission_time: document.getElementById('submission_time')?.value || (Date.now() - 3000),
+        consent: form.elements['consent']?.checked === true
       };
 
       console.log('Submitting payload:', payload);
