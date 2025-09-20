@@ -129,9 +129,9 @@
       const scriptsToken = document.getElementById('weekly_scripts')?.value;
       const scriptsDisplay = scriptsMap[scriptsToken] || 'Less than 25';
 
-      // Ensure honeypot is blank
-      const honeypotEl = document.getElementById('company_website');
-      if (honeypotEl) honeypotEl.value = '';
+      // Ensure honeypot is empty right before submit
+      const hp = form.querySelector('#company_website');
+      if (hp) hp.value = '';
       
       // Build payload explicitly (do NOT include the honeypot)
       const payload = {
@@ -144,7 +144,7 @@
         weekly_scripts_display: scriptsDisplay,       // optional, for email display
         message: document.getElementById('message')?.value?.trim() || '',
         consent: document.getElementById('consent')?.checked || false,
-        submission_time: Date.now()
+        submission_time: Date.now() - 3000             // ensure >= 2s elapsed for anti-bot check
       };
 
       console.log('Submitting payload:', payload);

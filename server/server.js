@@ -128,6 +128,11 @@ app.post('/api/quote', quoteLimiter, async (req, res) => {
       return res.status(400).json({ success: false, error: 'Submission rejected' });
     }
 
+    // Back-compat: accept either monthly_scripts or weekly_scripts
+    if (req.body.monthly_scripts && !req.body.weekly_scripts) {
+      req.body.weekly_scripts = req.body.monthly_scripts;
+    }
+
     // Validate and sanitize input
     const validation = validateQuotePayload(req.body);
     if (!validation.valid) {
