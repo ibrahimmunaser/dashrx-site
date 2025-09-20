@@ -46,7 +46,17 @@ logger.info('Configuring body parsing middleware');
 app.use(express.json({ limit: '100kb' }));
 app.use(express.urlencoded({ extended: true, limit: '100kb' }));
 
-// Apply rate limiting to API routes
+// 1) Health check FIRST (before limiter)
+app.get('/api/health', (req, res) => {
+  logger.info('Health check requested');
+  res.json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+// 2) THEN apply rate limiting to the rest of /api
 logger.info('Applying rate limiting to API routes');
 app.use('/api/', apiLimiter);
 
@@ -193,15 +203,6 @@ app.post('/api/quote', quoteLimiter, async (req, res) => {
   }
 });
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  logger.info('Health check requested');
-  res.json({
-    status: 'healthy',
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
-  });
-});
 
 // Log download endpoint
 app.get('/api/logs/download', (req, res) => {

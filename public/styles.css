@@ -282,12 +282,15 @@ a:focus {
 .nav-logo {
   text-decoration: none;
   color: var(--primary-dark);
+  display: flex;
+  align-items: center;
 }
 
-.logo-text {
-  font-size: 1.5rem;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: -0.025em;
+.logo-image {
+  height: 40px;
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
 }
 
 
@@ -1126,6 +1129,11 @@ section {
   }
   
   /* Navigation */
+  .logo-image {
+    height: 32px;
+    max-width: 120px;
+  }
+  
   .nav-menu {
     display: none;
     position: absolute;
