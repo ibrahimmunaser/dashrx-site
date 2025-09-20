@@ -119,6 +119,13 @@
     setSubmitButtonLoading(true);
     
     try {
+      // ensure honeypot is empty (some browsers autofill it)
+      const hp = document.getElementById('company_website');
+      if (hp) {
+        hp.value = '';
+        hp.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      
       // Build payload explicitly (do NOT include the honeypot)
       const payload = {
         pharmacy_name: document.getElementById('pharmacy_name').value.trim(),
