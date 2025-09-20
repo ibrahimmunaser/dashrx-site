@@ -7,7 +7,7 @@
   'use strict';
 
   // DOM elements
-  let form, formStatus, submitButton, navToggle, navMenu;
+  let form, formAlert, submitButton, navToggle, navMenu;
   let formStartTime = Date.now();
 
   // Initialize when DOM is loaded
@@ -22,8 +22,8 @@
    * Initialize DOM element references
    */
   function initializeElements() {
-    form = document.getElementById('quote-form');
-    formStatus = document.getElementById('form-status');
+    form = document.getElementById('quoteForm');
+    formAlert = document.getElementById('formAlert');
     submitButton = document.querySelector('.btn-submit');
     navToggle = document.querySelector('.nav-toggle');
     navMenu = document.querySelector('.nav-menu');
@@ -46,36 +46,42 @@
         input.addEventListener('blur', () => validateField(input));
         input.addEventListener('input', () => clearFieldError(input));
       });
-      
-      // Character counter for message field
-      const messageField = document.getElementById('message');
-      if (messageField) {
-        messageField.addEventListener('input', updateCharacterCount);
-      }
     }
 
     // Smooth scroll for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', handleSmoothScroll);
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
     });
 
     // Mobile navigation toggle
-    if (navToggle && navMenu) {
+    if (navToggle) {
       navToggle.addEventListener('click', toggleMobileNav);
     }
 
-    // Close mobile nav when clicking on links
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', closeMobileNav);
-    });
-
     // Close mobile nav when clicking outside
     document.addEventListener('click', function(e) {
-      if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+      if (!e.target.closest('.nav') && navMenu && navMenu.classList.contains('show')) {
         closeMobileNav();
       }
     });
 
+    // Global error handling
+    window.addEventListener('error', function(e) {
+      logClientError(e.error, 'Global error');
+    });
+
+    window.addEventListener('unhandledrejection', function(e) {
+      logClientError(e.reason, 'Unhandled promise rejection');
+    });
   }
 
   /**
@@ -84,111 +90,76 @@
   async function handleFormSubmit(e) {
     e.preventDefault();
     
-    // Clear previous status
-    hideFormStatus();
+    // Clear any previous alerts
+    hideFormAlert();
     
-    // Validate form
+    // Client-side validation
     const validationResult = validateForm();
     if (!validationResult.isValid) {
-      const errorMessage = validationResult.errors.length > 0 
-        ? `Please fix these errors: ${validationResult.errors.join(', ')}`
-        : 'Please correct the errors below.';
-      showFormStatus(errorMessage, 'error');
+      showFormAlert('error', validationResult.errors.join(', '));
       return;
     }
     
-    // Check submission timing (spam prevention)
-    const timeDiff = Date.now() - formStartTime;
-    if (timeDiff < 2000) {
-      showFormStatus('Please take your time filling out the form.', 'error');
-      return;
-    }
-    
-    // Show loading state
+    // Set loading state
     setSubmitButtonLoading(true);
     
     try {
-      // Collect form data
-      const formData = collectFormData();
-      
-      // Submit to API
+      // Build payload
+      const formData = new FormData(form);
+      const payload = {
+        pharmacy_name: formData.get('pharmacy_name') || '',
+        contact_person: formData.get('contact_person') || '',
+        email: formData.get('email') || '',
+        phone: formData.get('phone') || '',
+        address: formData.get('address') || '',
+        monthly_scripts: formData.get('monthly_scripts') || '', // Server expects this field name
+        message: formData.get('message') || '',
+        company_website: formData.get('company_website') || '',
+        consent: formData.has('consent'),
+        submission_time: formStartTime // Time when page loaded, not when submitted
+      };
+
+      console.log('Submitting payload:', payload);
+
+      // Submit to server
       const response = await fetch('/api/quote', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          ...formData,
-          submission_time: formStartTime
-        })
+        body: JSON.stringify(payload)
       });
-      
-      const result = await response.json();
-      
-      if (response.ok && result.success) {
-        // Success - redirect to success page or show inline message
-        if (window.location.pathname === '/') {
-          // Inline success message
-          showFormStatus(
-            '✅ Quote request submitted successfully! We\'ll email you shortly with a tailored delivery plan.',
-            'success'
-          );
-          form.reset();
-          formStartTime = Date.now(); // Reset timing
-          
-          // Scroll to success message
-          formStatus.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          
-          // Optional: redirect to success page after delay
-          setTimeout(() => {
-            window.location.href = '/success';
-          }, 3000);
-        } else {
-          window.location.href = '/success';
-        }
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        // Success - redirect to success page
+        window.location.href = '/success';
       } else {
-        // Handle API errors
-        const errorMessage = result.error || 'Submission failed. Please try again.';
-        showFormStatus(errorMessage, 'error');
+        // Handle validation or server errors
+        let errorMessage = 'There was an error submitting your request. Please try again.';
         
-        // Show contact info for persistent errors
-        if (response.status >= 500) {
-          showContactFallback();
+        if (data.details && Array.isArray(data.details)) {
+          errorMessage = data.details.join(', ');
+        } else if (data.error) {
+          errorMessage = data.error;
         }
+        
+        showFormAlert('error', errorMessage);
       }
-      
     } catch (error) {
       console.error('Form submission error:', error);
-      showFormStatus(
-        'Network error. Please check your connection and try again.',
-        'error'
-      );
-      showContactFallback();
+      showFormAlert('error', 'Network error. Please check your connection and try again.');
+      logClientError(error, 'Form submission');
     } finally {
       setSubmitButtonLoading(false);
     }
   }
 
   /**
-   * Collect form data into object
-   */
-  function collectFormData() {
-    const formData = new FormData(form);
-    const data = {};
-    
-    // Convert FormData to plain object
-    for (let [key, value] of formData.entries()) {
-      data[key] = value;
-    }
-    
-    return data;
-  }
-
-  /**
    * Validate entire form
    */
   function validateForm() {
-    let isValid = true;
     const errors = [];
     
     // Required fields
@@ -201,64 +172,60 @@
     
     requiredFields.forEach(field => {
       const input = document.getElementById(field.id);
-      const fieldResult = validateField(input);
-      if (!fieldResult.isValid) {
-        isValid = false;
-        errors.push(`${field.name}: ${fieldResult.error}`);
+      if (!input || !input.value.trim()) {
+        errors.push(`${field.name} is required`);
       }
     });
     
-    // Consent checkbox
-    const consent = document.getElementById('consent');
-    if (!consent.checked) {
-      showFieldError(consent, 'You must confirm this form does not include patient information.');
-      isValid = false;
-      errors.push('Must confirm no patient information included');
+    // Email validation
+    const emailInput = document.getElementById('email');
+    if (emailInput && emailInput.value && !isValidEmail(emailInput.value)) {
+      errors.push('Please enter a valid email address');
     }
     
-    // Honeypot check - more intelligent detection
-    const honeypot = document.getElementById('company_website');
-    if (honeypot && honeypot.value.trim() !== '') {
-      const honeypotValue = honeypot.value.trim();
+    // Phone validation
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput && phoneInput.value && !isValidPhone(phoneInput.value)) {
+      errors.push('Please enter a valid US phone number');
+    }
+    
+    // Consent checkbox
+    const consentInput = document.getElementById('consent');
+    if (!consentInput || !consentInput.checked) {
+      errors.push('You must confirm this form does not include patient information');
+    }
+    
+    // Honeypot check
+    const honeypotInput = document.getElementById('company_website');
+    if (honeypotInput && honeypotInput.value.trim() !== '') {
+      // Log for debugging but treat as spam
+      console.log('🍯 Honeypot filled:', honeypotInput.value);
       
-      // Log for debugging
-      console.log('🍯 Honeypot field filled:', honeypotValue);
-      
-      // Allow common autofill values that browsers might insert (match server-side logic)
+      // Allow common autofill values
       const allowedAutofillValues = [
-        'http://',
-        'https://',
-        'www.',
-        'example.com',
-        'test.com',
-        'localhost',
-        'projectjannahyemen'
+        'http://', 'https://', 'www.', 'example.com', 'test.com', 'localhost', 'projectjannahyemen'
       ];
       
-      // Check if it's likely autofill vs. actual spam (same logic as server)
       const isLikelyAutofill = allowedAutofillValues.some(allowed => 
-        honeypotValue.toLowerCase().includes(allowed.toLowerCase())
-      ) || honeypotValue.length < 10; // Short values are likely accidental
+        honeypotInput.value.toLowerCase().includes(allowed.toLowerCase())
+      ) || honeypotInput.value.length < 10;
       
       if (!isLikelyAutofill) {
-        isValid = false;
         errors.push('Spam detection triggered');
-        console.log('🚫 Honeypot triggered - likely spam:', honeypotValue);
-      } else {
-        console.log('✅ Honeypot filled but appears to be autofill, allowing submission');
-        // Clear the honeypot value to prevent server-side rejection
-        honeypot.value = '';
       }
     }
     
-    return { isValid, errors };
+    return {
+      isValid: errors.length === 0,
+      errors: errors
+    };
   }
 
   /**
    * Validate individual field
    */
   function validateField(input) {
-    if (!input) return { isValid: true, error: '' };
+    if (!input) return true;
     
     const value = input.value.trim();
     const fieldId = input.id;
@@ -267,7 +234,7 @@
     
     // Required field validation
     if (input.hasAttribute('required') && !value) {
-      errorMessage = 'This field is required';
+      errorMessage = 'This field is required.';
       isValid = false;
     }
     
@@ -275,21 +242,21 @@
     switch (fieldId) {
       case 'email':
         if (value && !isValidEmail(value)) {
-          errorMessage = 'Invalid email format';
+          errorMessage = 'Please enter a valid email address.';
           isValid = false;
         }
         break;
         
       case 'phone':
         if (value && !isValidPhone(value)) {
-          errorMessage = 'Invalid US phone number format';
+          errorMessage = 'Please enter a valid US phone number.';
           isValid = false;
         }
         break;
         
       case 'message':
         if (value.length > 2000) {
-          errorMessage = 'Message too long (max 2000 characters)';
+          errorMessage = 'Message must be 2000 characters or less.';
           isValid = false;
         }
         break;
@@ -302,78 +269,85 @@
       showFieldError(input, errorMessage);
     }
     
-    return { isValid, error: errorMessage };
+    return isValid;
   }
 
   /**
    * Email validation
    */
   function isValidEmail(email) {
-    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    return emailRegex.test(email) && email.length <= 254;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   }
 
   /**
-   * Phone validation (US format)
+   * US phone validation
    */
   function isValidPhone(phone) {
+    const phoneRegex = /^[\(\)\s\-\.\+]*[0-9][\(\)\s\-\.\+0-9]*$/;
     const digits = phone.replace(/\D/g, '');
-    return (digits.length === 10 && /^[2-9]\d{2}[2-9]\d{2}\d{4}$/.test(digits)) ||
-           (digits.length === 11 && digits.startsWith('1') && /^1[2-9]\d{2}[2-9]\d{2}\d{4}$/.test(digits));
+    return phoneRegex.test(phone) && digits.length >= 10 && digits.length <= 11;
   }
 
   /**
    * Show field error
    */
   function showFieldError(input, message) {
-    const errorElement = document.getElementById(input.id + '_error');
+    const errorId = input.id + '_error';
+    let errorElement = document.getElementById(errorId);
+    
+    if (!errorElement) {
+      errorElement = input.parentNode.querySelector('.form-error');
+    }
+    
     if (errorElement) {
       errorElement.textContent = message;
       errorElement.classList.add('show');
+      input.setAttribute('aria-invalid', 'true');
     }
-    input.classList.add('error');
-    input.setAttribute('aria-invalid', 'true');
   }
 
   /**
    * Clear field error
    */
   function clearFieldError(input) {
-    const errorElement = document.getElementById(input.id + '_error');
+    const errorId = input.id + '_error';
+    let errorElement = document.getElementById(errorId);
+    
+    if (!errorElement) {
+      errorElement = input.parentNode.querySelector('.form-error');
+    }
+    
     if (errorElement) {
       errorElement.textContent = '';
       errorElement.classList.remove('show');
-    }
-    input.classList.remove('error');
-    input.removeAttribute('aria-invalid');
-  }
-
-  /**
-   * Show form status message
-   */
-  function showFormStatus(message, type) {
-    if (!formStatus) return;
-    
-    formStatus.textContent = message;
-    formStatus.className = `form-status ${type}`;
-    formStatus.style.display = 'block';
-    
-    // Announce to screen readers
-    formStatus.setAttribute('aria-live', 'polite');
-    if (type === 'error') {
-      formStatus.setAttribute('role', 'alert');
+      input.removeAttribute('aria-invalid');
     }
   }
 
   /**
-   * Hide form status
+   * Show form alert
    */
-  function hideFormStatus() {
-    if (formStatus) {
-      formStatus.style.display = 'none';
-      formStatus.removeAttribute('aria-live');
-      formStatus.removeAttribute('role');
-    }
+  function showFormAlert(type, message) {
+    if (!formAlert) return;
+    
+    formAlert.textContent = message;
+    formAlert.className = `form-alert ${type}`;
+    formAlert.style.display = 'block';
+    
+    // Scroll to alert
+    formAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /**
+   * Hide form alert
+   */
+  function hideFormAlert() {
+    if (!formAlert) return;
+    
+    formAlert.style.display = 'none';
+    formAlert.className = 'form-alert';
+    formAlert.textContent = '';
   }
 
   /**
@@ -397,214 +371,65 @@
   }
 
   /**
-   * Show contact fallback info
-   */
-  function showContactFallback() {
-    const fallbackHTML = `
-      <div style="margin-top: 1rem; padding: 1rem; background-color: #F3F4F6; border-radius: 0.5rem;">
-        <p><strong>Having trouble?</strong> Contact us directly:</p>
-        <p>📞 <a href="tel:+13133332133">(313) 333-2133</a></p>
-        <p>📧 <a href="mailto:dashrx10@gmail.com">dashrx10@gmail.com</a></p>
-      </div>
-    `;
-    
-    if (formStatus) {
-      formStatus.innerHTML += fallbackHTML;
-    }
-  }
-
-  /**
-   * Update character count for message field
-   */
-  function updateCharacterCount() {
-    const messageField = document.getElementById('message');
-    const helpText = document.getElementById('message_help');
-    
-    if (messageField && helpText) {
-      const currentLength = messageField.value.length;
-      const maxLength = 2000;
-      const remaining = maxLength - currentLength;
-      
-      helpText.textContent = `${remaining} characters remaining (${currentLength}/${maxLength})`;
-      
-      if (remaining < 100) {
-        helpText.style.color = '#F59E0B'; // Warning color
-      } else {
-        helpText.style.color = ''; // Reset to default
-      }
-    }
-  }
-
-  /**
-   * Handle smooth scroll for anchor links
-   */
-  function handleSmoothScroll(e) {
-    const href = e.currentTarget.getAttribute('href');
-    
-    if (href.startsWith('#')) {
-      e.preventDefault();
-      
-      const targetId = href.substring(1);
-      const target = document.getElementById(targetId);
-      
-      if (target) {
-        const headerHeight = document.querySelector('.header').offsetHeight;
-        const targetPosition = target.offsetTop - headerHeight - 20; // 20px extra padding
-        
-        window.scrollTo({
-          top: targetPosition,
-          behavior: 'smooth'
-        });
-        
-        // Update URL without jumping
-        if (history.pushState) {
-          history.pushState(null, null, href);
-        }
-        
-        // Close mobile nav if open
-        closeMobileNav();
-      }
-    }
-  }
-
-  /**
-   * Initialize mobile navigation
+   * Mobile navigation functions
    */
   function initializeMobileNav() {
-    if (navToggle) {
-      navToggle.setAttribute('aria-expanded', 'false');
-      navToggle.setAttribute('aria-controls', 'navigation-menu');
-    }
-    
-    if (navMenu) {
-      navMenu.setAttribute('id', 'navigation-menu');
-    }
+    // Mobile nav is handled by CSS, just ensure toggle works
   }
 
-  /**
-   * Toggle mobile navigation
-   */
   function toggleMobileNav() {
-    if (!navToggle || !navMenu) return;
+    if (!navMenu) return;
     
-    const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-    
-    navToggle.setAttribute('aria-expanded', !isExpanded);
-    navMenu.classList.toggle('active');
-    
-    // Prevent body scroll when menu is open
-    document.body.style.overflow = !isExpanded ? 'hidden' : '';
+    if (navMenu.classList.contains('show')) {
+      closeMobileNav();
+    } else {
+      openMobileNav();
+    }
   }
 
-  /**
-   * Close mobile navigation
-   */
-  function closeMobileNav() {
-    if (!navToggle || !navMenu) return;
+  function openMobileNav() {
+    if (!navMenu || !navToggle) return;
     
+    navMenu.classList.add('show');
+    navToggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeMobileNav() {
+    if (!navMenu || !navToggle) return;
+    
+    navMenu.classList.remove('show');
     navToggle.setAttribute('aria-expanded', 'false');
-    navMenu.classList.remove('active');
-    document.body.style.overflow = '';
   }
 
   /**
    * Update copyright year
    */
   function updateCopyrightYear() {
-    const yearElements = document.querySelectorAll('#current-year');
     const currentYear = new Date().getFullYear();
-    
-    yearElements.forEach(element => {
+    const copyrightElements = document.querySelectorAll('.copyright-year');
+    copyrightElements.forEach(element => {
       element.textContent = currentYear;
     });
   }
 
   /**
-   * Keyboard navigation enhancement
+   * Log client-side errors
    */
-  document.addEventListener('keydown', function(e) {
-    // Escape key closes mobile nav
-    if (e.key === 'Escape') {
-      closeMobileNav();
-    }
+  function logClientError(error, context) {
+    console.error(`Client Error [${context}]:`, error);
     
-    // Enter key on nav toggle activates it
-    if (e.key === 'Enter' && e.target === navToggle) {
-      e.preventDefault();
-      toggleMobileNav();
-    }
-  });
-
-  /**
-   * Focus management for accessibility
-   */
-  document.addEventListener('focusin', function(e) {
-    // Ensure form errors are announced when fields receive focus
-    const input = e.target;
-    if (input.hasAttribute('aria-invalid') && input.getAttribute('aria-invalid') === 'true') {
-      const errorElement = document.getElementById(input.id + '_error');
-      if (errorElement && errorElement.textContent) {
-        // Error will be announced due to aria-describedby relationship
-      }
-    }
-  });
-
-
-  /**
-   * Client-side error logging
-   */
-  function logClientError(error, context = '') {
-    const errorData = {
-      message: error.message,
-      stack: error.stack,
-      context: context,
-      url: window.location.href,
-      userAgent: navigator.userAgent,
-      timestamp: new Date().toISOString()
-    };
-    
-    console.error('Client Error:', errorData);
-    
-    // Optionally send to server (uncomment if needed)
-    // fetch('/api/logs/client-error', {
+    // You could send these to your server for monitoring
+    // fetch('/api/client-errors', {
     //   method: 'POST',
     //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(errorData)
-    // }).catch(() => {}); // Ignore failures
+    //   body: JSON.stringify({
+    //     error: error.toString(),
+    //     stack: error.stack,
+    //     context: context,
+    //     url: window.location.href,
+    //     userAgent: navigator.userAgent,
+    //     timestamp: new Date().toISOString()
+    //   })
+    // }).catch(() => {}); // Silent fail
   }
-
-  /**
-   * Global error handler
-   */
-  window.addEventListener('error', function(e) {
-    logClientError(e.error || new Error(e.message), 'Global error handler');
-  });
-
-  window.addEventListener('unhandledrejection', function(e) {
-    logClientError(new Error(e.reason), 'Unhandled promise rejection');
-  });
-
-  /**
-   * Intersection Observer for animations (if needed)
-   */
-  if ('IntersectionObserver' in window) {
-    const observerCallback = function(entries) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-in');
-        }
-      });
-    };
-    
-    const observer = new IntersectionObserver(observerCallback, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    });
-    
-    // Observe elements that should animate in
-    document.querySelectorAll('.feature-card, .benefit-item').forEach(el => {
-      observer.observe(el);
-    });
-  }
-
 })();

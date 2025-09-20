@@ -283,9 +283,12 @@
                         </p>
                     </div>
 
-                    <form id="quote-form" class="quote-form" novalidate>
+                    <form id="quoteForm" class="quote-form" method="post" novalidate>
                         <!-- Form Status Messages -->
                         <div id="form-status" class="form-status" aria-live="polite" role="status"></div>
+                        
+                        <!-- Form Alert for Errors -->
+                        <div id="formAlert" class="form-alert" style="display: none;" role="alert"></div>
                         
                         <!-- Honeypot Field (Hidden) -->
                         <input type="text" name="company_website" id="company_website" class="honeypot" tabindex="-1" autocomplete="off">
@@ -369,10 +372,10 @@
 
                         <!-- Weekly Deliveries Dropdown -->
                         <div class="form-group">
-                            <label for="monthly_scripts" class="form-label">
+                            <label for="weekly_deliveries" class="form-label">
                                 Estimated Weekly Deliveries
                             </label>
-                            <select id="monthly_scripts" name="monthly_scripts" class="form-select">
+                            <select id="weekly_deliveries" name="monthly_scripts" class="form-select">
                                 <option value="">Select volume...</option>
                                 <option value="<25">Less than 25</option>
                                 <option value="25–125">25 to 125</option>
