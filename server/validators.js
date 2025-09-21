@@ -9,21 +9,31 @@ const logger = require('./logger');
  * Normalize weekly scripts value - handles tokens and legacy display strings
  */
 const normalizeWeeklyScripts = (val) => {
-  if (!val) return { token: 'lt25', display: 'Less than 25' };
+  if (!val) return { token: 'lt30', display: 'Less than 30' };
   const v = String(val).trim();
 
-  // Accept tokens first
-  if (v === 'lt25')     return { token: 'lt25',     display: 'Less than 25' };
-  if (v === '25to125')  return { token: '25to125',  display: '25 to 125' };
-  if (v === 'gt125')    return { token: 'gt125',    display: 'More than 125' };
+  // Accept new tokens first
+  if (v === 'lt30')     return { token: 'lt30',     display: 'Less than 30' };
+  if (v === '30to75')   return { token: '30to75',   display: '30 to 75' };
+  if (v === 'gt75')     return { token: 'gt75',     display: 'More than 75' };
 
-  // Accept legacy display strings (hyphen or EN/EM dash)
+  // Accept legacy tokens for backward compatibility
+  if (v === 'lt25')     return { token: 'lt30',     display: 'Less than 30' };
+  if (v === '25to125')  return { token: '30to75',   display: '30 to 75' };
+  if (v === 'gt125')    return { token: 'gt75',     display: 'More than 75' };
+
+  // Accept display strings (hyphen or EN/EM dash)
   const clean = v.replace(/\u2013|\u2014/g, '-'); // en/em dash → hyphen
-  if (/^less\s+than\s+25$/i.test(clean))                  return { token: 'lt25',    display: 'Less than 25' };
-  if (/^(25\s*-\s*125|25\s*to\s*125)$/i.test(clean))      return { token: '25to125', display: '25 to 125' };
-  if (/^more\s+than\s+125$/i.test(clean))                 return { token: 'gt125',   display: 'More than 125' };
+  if (/^less\s+than\s+30$/i.test(clean))                  return { token: 'lt30',    display: 'Less than 30' };
+  if (/^(30\s*-\s*75|30\s*to\s*75)$/i.test(clean))       return { token: '30to75',  display: '30 to 75' };
+  if (/^more\s+than\s+75$/i.test(clean))                  return { token: 'gt75',    display: 'More than 75' };
+  
+  // Legacy display strings for backward compatibility
+  if (/^less\s+than\s+25$/i.test(clean))                  return { token: 'lt30',    display: 'Less than 30' };
+  if (/^(25\s*-\s*125|25\s*to\s*125)$/i.test(clean))     return { token: '30to75',  display: '30 to 75' };
+  if (/^more\s+than\s+125$/i.test(clean))                 return { token: 'gt75',    display: 'More than 75' };
 
-  return { token: 'lt25', display: 'Less than 25' };
+  return { token: 'lt30', display: 'Less than 30' };
 };
 
 /**
