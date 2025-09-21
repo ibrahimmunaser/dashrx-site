@@ -10,6 +10,7 @@ const { validateQuotePayload, detectSpam } = require('./validators');
 const { sendQuoteEmail } = require('./mailer');
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
 
 // Request logging middleware
