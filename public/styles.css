@@ -295,7 +295,7 @@ a:focus {
 }
 
 
-.nav-menu {
+.nav-desktop {
   display: flex;
   align-items: center;
   gap: var(--space-xl);
@@ -1156,28 +1156,14 @@ section {
     background: transparent;
   }
   
-  .nav-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: white;
-    border-top: 1px solid var(--neutral-border);
-    box-shadow: var(--shadow-lg);
-    flex-direction: column;
-    gap: 0;
-    padding: var(--space-lg);
-  }
+  /* Default: show desktop nav, hide mobile menu bits */
+  .nav-desktop { display: flex; gap: 16px; align-items: center; }
+  .nav-toggle  { display: none; }         /* never show the hamburger */
+  .nav-menu    { display: none !important; } /* kill the slide-down menu entirely */
   
-  
-  .nav-menu.active {
-    display: flex;
-  }
-  
-  .nav-toggle {
-    display: flex;
-  }
+  /* Tighten spacing on small screens so links fit nicely */
+  .nav-desktop a { padding: 8px 6px; font-size: 0.95rem; }
+  .btn.btn-small { padding: 8px 12px; }
   
   .nav-back {
     display: block;
