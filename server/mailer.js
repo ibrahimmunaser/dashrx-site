@@ -72,24 +72,60 @@ async function sendQuoteEmail(data) {
   const to = process.env.MAIL_TO;
   const from = process.env.MAIL_FROM || process.env.MAIL_USER;
 
-  const html = `
-    <h2>New Quote Request</h2>
-    <ul>
-      <li><b>Pharmacy:</b> ${data.pharmacy_name}</li>
-      <li><b>Contact:</b> ${data.contact_person}</li>
-      <li><b>Email:</b> ${data.email}</li>
-      <li><b>Phone:</b> ${data.phone}</li>
-      <li><b>Address:</b> ${data.address}</li>
-      <li><b>Estimated Weekly Scripts:</b> ${data.weekly_scripts_display || data.weekly_scripts}</li>
-      <li><b>Notes:</b> ${data.message || '(none)'}</li>
-    </ul>
-  `;
+  // Format timestamps
+  const now = new Date();
+  const estTime = now.toLocaleString('en-US', {
+    timeZone: 'America/New_York',
+    month: '2-digit',
+    day: '2-digit', 
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+  const utcTime = now.toISOString();
+
+  // Normalize phone number (remove non-digits except +)
+  const normalizedPhone = data.phone ? data.phone.replace(/[^\d+]/g, '') : '';
+  
+  // Get weekly deliveries display text
+  const weeklyDeliveries = data.weekly_scripts_display || data.weekly_scripts || 'Not specified';
+
+  const emailBody = `DashRx Delivery Quote Request
+============================
+
+PHARMACY INFORMATION:
+Pharmacy Name: ${data.pharmacy_name || 'Not provided'}
+Contact Person: ${data.contact_person || 'Not provided'}
+Phone: ${normalizedPhone || 'Not provided'}
+Email: ${data.email || 'Not provided'}
+Address: ${data.address || 'Not provided'}
+
+BUSINESS DETAILS:
+Estimated Weekly Deliveries: ${weeklyDeliveries}
+
+ADDITIONAL NOTES:
+${data.message || 'No additional notes provided'}
+
+SUBMISSION DETAILS:
+Submitted: ${estTime} EST/EDT
+UTC Time: ${utcTime}
+Form Source: DashRx Partner Website
+${data.ip ? `Client IP: ${data.ip}` : ''}
+
+----
+Reply directly to this email to respond to ${data.contact_person || 'the contact person'} at ${data.email || 'their email'}
+${normalizedPhone ? `For urgent matters, call them at ${normalizedPhone}` : ''}`;
 
   try {
     const info = await transporter.sendMail({
-      to, from, replyTo: data.email,
-      subject: `DashRx Quote – ${data.pharmacy_name}`,
-      html,
+      to, 
+      from, 
+      replyTo: data.email,
+      subject: `New Quote Request — ${data.pharmacy_name || 'Unknown Pharmacy'}`,
+      text: emailBody,
+      html: `<pre style="font-family: monospace; white-space: pre-wrap;">${emailBody}</pre>`
     });
     return { messageId: info.messageId, timestamp: new Date().toISOString() };
   } catch (e) {
