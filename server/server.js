@@ -119,6 +119,9 @@ app.post('/api/quote', quoteLimiter, async (req, res) => {
       contact_person: req.body.contact_person,
       email: req.body.email,
       phone: req.body.phone,
+      address: req.body.address,
+      city: req.body.city,
+      state: req.body.state,
       hasMessage: !!req.body.message,
       honeypot: req.body.company_website
     });

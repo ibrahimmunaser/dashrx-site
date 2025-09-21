@@ -187,6 +187,8 @@ function validateQuotePayload(payload) {
     phone: sanitizeText(payload.phone),
     email: sanitizeText(payload.email),
     address: sanitizeText(payload.address || ''),
+    city: sanitizeText(payload.city || ''),
+    state: sanitizeText(payload.state || ''),
     weekly_scripts: scriptsNorm.token,
     weekly_scripts_display: scriptsNorm.display,
     message: sanitizeText(payload.message || ''),
