@@ -134,6 +134,8 @@
         email: document.getElementById('email').value.trim(),
         phone: document.getElementById('phone').value.trim(),
         address: document.getElementById('address').value.trim(),
+        city: (form.elements['city'] ? form.elements['city'].value.trim() : ''),
+        state: (form.elements['state'] ? form.elements['state'].value : ''),
         weekly_scripts: form.elements['monthly_scripts']?.value || form.elements['weekly_scripts']?.value,
         weekly_scripts_display: form.elements['monthly_scripts']?.selectedOptions?.[0]?.text || form.elements['weekly_scripts']?.selectedOptions?.[0]?.text,
         message: document.getElementById('message')?.value?.trim() || '',
