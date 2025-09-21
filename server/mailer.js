@@ -91,6 +91,18 @@ async function sendQuoteEmail(data) {
   
   // Get weekly deliveries display text
   const weeklyDeliveries = data.weekly_scripts_display || data.weekly_scripts || 'Not specified';
+  
+  // Build complete address with city and state
+  let fullAddress = data.address || '';
+  if (data.city || data.state) {
+    const cityState = [data.city, data.state].filter(Boolean).join(', ');
+    if (cityState) {
+      fullAddress = fullAddress ? `${fullAddress}, ${cityState}` : cityState;
+    }
+  }
+  if (!fullAddress) {
+    fullAddress = 'Not provided';
+  }
 
   const emailBody = `DashRx Delivery Quote Request
 ============================
@@ -100,7 +112,7 @@ Pharmacy Name: ${data.pharmacy_name || 'Not provided'}
 Contact Person: ${data.contact_person || 'Not provided'}
 Phone: ${normalizedPhone || 'Not provided'}
 Email: ${data.email || 'Not provided'}
-Address: ${data.address || 'Not provided'}
+Address: ${fullAddress}
 
 BUSINESS DETAILS:
 Estimated Weekly Deliveries: ${weeklyDeliveries}
