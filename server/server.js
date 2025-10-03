@@ -322,7 +322,7 @@ app.get('/api/test-email', async (req, res) => {
       email: 'test@example.com',
       phone: '+10000000000',
       address: '123 Test St',
-      weekly_scripts: { code: null, display: 'Not specified' },
+      weekly_scripts: { token: null, display: 'Not specified' },
       message: 'This is a test email from /api/test-email.',
       ip: req.ip || req.headers['x-forwarded-for'] || 'unknown'
     });

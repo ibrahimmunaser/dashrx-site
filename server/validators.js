@@ -6,34 +6,77 @@
 const logger = require('./logger');
 
 /**
- * Normalize weekly scripts value - handles tokens and legacy display strings
+ * Normalize weekly scripts value - handles tokens and display strings gracefully
  */
-const normalizeWeeklyScripts = (val) => {
-  if (!val) return { token: 'lt30', display: 'Less than 30' };
-  const v = String(val).trim();
+const normalizeWeeklyScripts = (inputToken, inputDisplay) => {
+  // If both inputs are empty, return default
+  if ((!inputToken || !String(inputToken).trim()) && (!inputDisplay || !String(inputDisplay).trim())) {
+    return { token: null, display: 'Not specified' };
+  }
 
-  // Accept new tokens first
-  if (v === 'lt30')     return { token: 'lt30',     display: 'Less than 30' };
-  if (v === '30to75')   return { token: '30to75',   display: '30 to 75' };
-  if (v === 'gt75')     return { token: 'gt75',     display: 'More than 75' };
+  // Known map labels
+  const MAP = {
+    lt25: 'Less than 25',
+    '25to125': '25 to 125',
+    gt125: 'More than 125',
+    '30to75': '30 to 75'
+  };
 
-  // Accept legacy tokens for backward compatibility
-  if (v === 'lt25')     return { token: 'lt30',     display: 'Less than 30' };
-  if (v === '25to125')  return { token: '30to75',   display: '30 to 75' };
-  if (v === 'gt125')    return { token: 'gt75',     display: 'More than 75' };
+  // If inputDisplay is provided, prefer that
+  if (inputDisplay && String(inputDisplay).trim()) {
+    const displayValue = String(inputDisplay).trim();
+    return {
+      token: inputToken ? String(inputToken).trim() : null,
+      display: displayValue
+    };
+  }
 
-  // Accept display strings (hyphen or EN/EM dash)
-  const clean = v.replace(/\u2013|\u2014/g, '-'); // en/em dash → hyphen
-  if (/^less\s+than\s+30$/i.test(clean))                  return { token: 'lt30',    display: 'Less than 30' };
-  if (/^(30\s*-\s*75|30\s*to\s*75)$/i.test(clean))       return { token: '30to75',  display: '30 to 75' };
-  if (/^more\s+than\s+75$/i.test(clean))                  return { token: 'gt75',    display: 'More than 75' };
-  
-  // Legacy display strings for backward compatibility
-  if (/^less\s+than\s+25$/i.test(clean))                  return { token: 'lt30',    display: 'Less than 30' };
-  if (/^(25\s*-\s*125|25\s*to\s*125)$/i.test(clean))     return { token: '30to75',  display: '30 to 75' };
-  if (/^more\s+than\s+125$/i.test(clean))                 return { token: 'gt75',    display: 'More than 75' };
+  // Process token if available
+  if (inputToken && String(inputToken).trim()) {
+    const token = String(inputToken).trim();
+    
+    // Check if token is in known MAP
+    if (MAP[token]) {
+      return { token, display: MAP[token] };
+    }
 
-  return { token: 'lt30', display: 'Less than 30' };
+    // Pretty-print generic tokens
+    // Pattern: "(\d+)to(\d+)" → "$1 to $2"
+    const rangeMatch = token.match(/^(\d+)to(\d+)$/);
+    if (rangeMatch) {
+      return {
+        token,
+        display: `${rangeMatch[1]} to ${rangeMatch[2]}`
+      };
+    }
+
+    // Pattern: /^lt(\d+)$/ → "Less than $1"
+    const ltMatch = token.match(/^lt(\d+)$/);
+    if (ltMatch) {
+      return {
+        token,
+        display: `Less than ${ltMatch[1]}`
+      };
+    }
+
+    // Pattern: /^gt(\d+)$/ → "More than $1"
+    const gtMatch = token.match(/^gt(\d+)$/);
+    if (gtMatch) {
+      return {
+        token,
+        display: `More than ${gtMatch[1]}`
+      };
+    }
+
+    // Fallback to token itself
+    return {
+      token,
+      display: token
+    };
+  }
+
+  // Should not reach here, but fallback
+  return { token: null, display: 'Not specified' };
 };
 
 /**
@@ -138,15 +181,13 @@ function validateQuotePayload(payload) {
   }
   
   // Weekly scripts normalization
-  const scriptsNorm = normalizeWeeklyScripts(payload.weekly_scripts || payload.weekly_scripts_display);
+  const scriptsNorm = normalizeWeeklyScripts(payload.weekly_scripts, payload.weekly_scripts_display);
   logger.debug('Weekly scripts normalization', {
     input: payload.weekly_scripts,
     inputDisplay: payload.weekly_scripts_display,
     normalized: scriptsNorm
   });
-  if (!scriptsNorm.token) {
-    errors.push('Invalid weekly delivery volume selected');
-  }
+  // Note: weekly_scripts is optional, so we don't add validation errors
   
   if (payload.message && payload.message.length > 2000) {
     errors.push('Message must be 2000 characters or less');
@@ -190,6 +231,23 @@ function validateQuotePayload(payload) {
     }
   }
   
+  // Light sanitization for city and state
+  let city = '';
+  let state = '';
+  
+  if (payload.city && typeof payload.city === 'string') {
+    // City: trim, max 100, letters/numbers/basic punctuation allowed
+    city = payload.city.trim().slice(0, 100).replace(/[^a-zA-Z0-9\s\-\.,']/g, '');
+  }
+  
+  if (payload.state && typeof payload.state === 'string') {
+    // State: take the first 2 uppercase letters
+    const stateMatch = payload.state.trim().match(/^([A-Za-z]{1,2})/);
+    if (stateMatch) {
+      state = stateMatch[1].toUpperCase();
+    }
+  }
+
   // Sanitize all text fields
   const sanitized = {
     pharmacy_name: sanitizeText(payload.pharmacy_name),
@@ -197,10 +255,9 @@ function validateQuotePayload(payload) {
     phone: sanitizeText(payload.phone),
     email: sanitizeText(payload.email),
     address: sanitizeText(payload.address || ''),
-    city: sanitizeText(payload.city || ''),
-    state: sanitizeText(payload.state || ''),
-    weekly_scripts: scriptsNorm.token,
-    weekly_scripts_display: scriptsNorm.display,
+    city: city,
+    state: state,
+    weekly_scripts: scriptsNorm,
     message: sanitizeText(payload.message || ''),
     company_website: sanitizeText(payload.company_website || '')
   };
@@ -247,5 +304,6 @@ module.exports = {
   sanitizeText,
   isValidMonthlyScripts,
   validateQuotePayload,
-  detectSpam
+  detectSpam,
+  normalizeWeeklyScripts
 };

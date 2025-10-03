@@ -90,19 +90,10 @@ async function sendQuoteEmail(data) {
   const normalizedPhone = data.phone ? data.phone.replace(/[^\d+]/g, '') : '';
   
   // Get weekly deliveries display text
-  const weeklyDeliveries = data.weekly_scripts_display || data.weekly_scripts || 'Not specified';
+  const scriptsDisplay = (data.weekly_scripts && data.weekly_scripts.display) || data.weekly_scripts_display || 'Not specified';
   
-  // Build complete address with city and state
-  let fullAddress = data.address || '';
-  if (data.city || data.state) {
-    const cityState = [data.city, data.state].filter(Boolean).join(', ');
-    if (cityState) {
-      fullAddress = fullAddress ? `${fullAddress}, ${cityState}` : cityState;
-    }
-  }
-  if (!fullAddress) {
-    fullAddress = 'Not provided';
-  }
+  // Build complete address
+  const fullAddress = data.address || 'Not provided';
 
   const emailBody = `DashRx Delivery Quote Request
 ============================
@@ -113,9 +104,11 @@ Contact Person: ${data.contact_person || 'Not provided'}
 Phone: ${normalizedPhone || 'Not provided'}
 Email: ${data.email || 'Not provided'}
 Address: ${fullAddress}
+City: ${data.city || '—'}
+State: ${data.state || '—'}
 
 BUSINESS DETAILS:
-Estimated Weekly Deliveries: ${weeklyDeliveries}
+Estimated Weekly Deliveries: ${scriptsDisplay}
 
 ADDITIONAL NOTES:
 ${data.message || 'No additional notes provided'}
